@@ -1,4 +1,4 @@
-// app/(marketing)/category/[id]/page.tsx
+// app\(marketing)\gse-class\[id]\page.tsx:
 export default function CategoryDetailPage() {
   return (
     <div className="container mx-auto px-4 py-12">

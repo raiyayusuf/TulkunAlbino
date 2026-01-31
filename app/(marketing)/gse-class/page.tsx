@@ -1,7 +1,14 @@
-// app/(marketing)/gse-class/page.tsx
+/* ============================================
+   app/(marketing)/gse-class/page.tsx
+   GSE CLASS HOMEPAGE - KATALOG KELAS
+   ============================================ */
+
 import React from "react";
 import CategoryCard from "./category-card";
 
+/* ============================================
+   DATA CONFIGURATION
+   ============================================ */
 const categories = [
   {
     id: "coding-python",
@@ -55,10 +62,24 @@ const categories = [
   },
 ];
 
+/* ============================================
+   WHATSAPP CONTACT CONFIGURATION
+   ============================================ */
+const WHATSAPP_NUMBER = "628xxxxxxxxxx";
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
+
+/* ============================================
+   GSE CLASS HOMEPAGE COMPONENT
+   ============================================ */
 export default function GseClassPage() {
+  /* ============================================
+     RENDER COMPONENT
+     ============================================ */
   return (
     <div>
-      {/* Header */}
+      {/* ============================================
+          HEADER SECTION
+          ============================================ */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-primary-navy">
           GSE Class - Katalog Kelas
@@ -69,7 +90,9 @@ export default function GseClassPage() {
         </p>
       </div>
 
-      {/* Development Notice */}
+      {/* ============================================
+          DEVELOPMENT NOTICE SECTION
+          ============================================ */}
       <div className="mb-8 rounded-xl border border-blue-200 bg-blue-50 p-6">
         <div className="flex items-start">
           <div className="mr-4 mt-1 rounded-full bg-blue-100 p-2">
@@ -88,7 +111,9 @@ export default function GseClassPage() {
         </div>
       </div>
 
-      {/* Categories Grid */}
+      {/* ============================================
+          CATEGORIES GRID SECTION
+          ============================================ */}
       <div className="mb-8">
         <h2 className="mb-6 text-2xl font-bold text-primary-navy">
           Semua Kategori Kelas
@@ -100,7 +125,9 @@ export default function GseClassPage() {
         </div>
       </div>
 
-      {/* CTA */}
+      {/* ============================================
+          CALL TO ACTION SECTION
+          ============================================ */}
       <div className="rounded-2xl bg-gradient-to-r from-primary-blue/10 to-primary-green/10 p-8">
         <div className="text-center">
           <h3 className="mb-4 text-2xl font-bold text-primary-navy">
@@ -110,7 +137,7 @@ export default function GseClassPage() {
             Hubungi tim kami untuk konsultasi gratis dan informasi biaya.
           </p>
           <a
-            href="https://wa.me/628xxxxxxxxxx"
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block rounded-lg bg-gradient-blue-green px-6 py-3 font-medium text-white transition-all hover:shadow-md"

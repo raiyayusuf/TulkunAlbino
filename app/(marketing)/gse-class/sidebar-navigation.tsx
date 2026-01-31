@@ -1,4 +1,8 @@
-// app/(marketing)/gse-class/sidebar-navigation.tsx
+/* ============================================
+   app/(marketing)/gse-class/sidebar-navigation.tsx
+   SIDEBAR NAVIGATION COMPONENT - GSE CLASS
+   ============================================ */
+
 "use client";
 
 import React, { useState } from "react";
@@ -17,6 +21,9 @@ import {
   Home,
 } from "lucide-react";
 
+/* ============================================
+   NAVIGATION CATEGORIES DATA
+   ============================================ */
 const categories = [
   {
     id: "all",
@@ -62,39 +69,77 @@ const categories = [
   },
 ];
 
+/* ============================================
+   LOGO DIMENSIONS CONFIGURATION
+   ============================================ */
+const LOGO_CONFIG = {
+  expanded: {
+    height: "h-28",
+    width: "w-40",
+    sizes: "128px",
+  },
+  collapsed: {
+    height: "h-10",
+    width: "w-10",
+    sizes: "60px",
+  },
+};
+
+/* ============================================
+   SIDEBAR NAVIGATION COMPONENT
+   ============================================ */
 export default function SidebarNavigation() {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
+  /* ============================================
+     HELPER FUNCTIONS
+     ============================================ */
+  const isActiveCategory = (categoryHref: string, categoryId: string) => {
+    return (
+      pathname === categoryHref ||
+      (categoryId === "all" && pathname === "/gse-class")
+    );
+  };
+
+  /* ============================================
+     RENDER COMPONENT
+     ============================================ */
   return (
     <div
-      className={`h-full border-r border-gray-200 bg-white transition-all duration-300 ${isCollapsed ? "w-20" : "w-64"}`} // HAPUS: overflow-y-auto
+      className={`h-full border-r border-gray-200 bg-white transition-all duration-300 ${
+        isCollapsed ? "w-20" : "w-64"
+      }`}
     >
-      {/* Konten utama - fixed height dengan flex column */}
+      {/* LAYOUT CONTAINER */}
       <div className="flex h-full flex-col">
-        {/* Bagian atas (logo + navigation) - bisa scroll kalau perlu */}
+        {/* ============================================
+            MAIN CONTENT AREA (SCROLLABLE)
+            ============================================ */}
         <div className="flex-1 overflow-y-auto p-4">
-          {" "}
-          {/* TAMBAH: overflow-y-auto di sini */}
-          {/* Logo & Toggle Button */}
+          {/* ============================================
+              LOGO & TOGGLE SECTION
+              ============================================ */}
           <div className={`mb-8 ${isCollapsed ? "" : "space-y-2"}`}>
+            {/* COLLAPSED STATE */}
             {isCollapsed ? (
-              // Collapsed State
               <div className="space-y-4">
-                {/* Compact Logo */}
+                {/* COMPACT LOGO */}
                 <div className="flex justify-center">
-                  <div className="relative h-10 w-10">
+                  <div
+                    className={`relative ${LOGO_CONFIG.collapsed.height} ${LOGO_CONFIG.collapsed.width}`}
+                  >
                     <Image
                       src="/logo/logo-c.png"
                       alt="GSE Class"
                       fill
                       className="object-contain"
-                      sizes="60px"
+                      sizes={LOGO_CONFIG.collapsed.sizes}
                     />
                   </div>
                 </div>
 
-                {/* Toggle Button untuk Expand */}
+                {/* EXPAND TOGGLE BUTTON */}
                 <div className="flex justify-center">
                   <button
                     onClick={() => setIsCollapsed(false)}
@@ -107,22 +152,24 @@ export default function SidebarNavigation() {
                 </div>
               </div>
             ) : (
-              // Expanded State
+              /* EXPANDED STATE */
               <div>
-                {/* Baris 1: Logo dan Toggle Button sejajar */}
+                {/* LOGO AND TOGGLE ROW */}
                 <div className="flex items-center justify-between">
-                  {/* Logo Full */}
-                  <div className="relative h-28 w-40">
+                  {/* FULL LOGO */}
+                  <div
+                    className={`relative ${LOGO_CONFIG.expanded.height} ${LOGO_CONFIG.expanded.width}`}
+                  >
                     <Image
                       src="/logo/gse-class.png"
                       alt="GSE Class"
                       fill
                       className="object-contain"
-                      sizes="128px"
+                      sizes={LOGO_CONFIG.expanded.sizes}
                     />
                   </div>
 
-                  {/* Toggle Button */}
+                  {/* COLLAPSE TOGGLE BUTTON */}
                   <button
                     onClick={() => setIsCollapsed(!isCollapsed)}
                     className="rounded-lg p-2 text-gray-500 hover:bg-gray-100"
@@ -132,19 +179,20 @@ export default function SidebarNavigation() {
                   </button>
                 </div>
 
-                {/* Baris 2: Learning Platform text */}
+                {/* SUBTITLE */}
                 <div className="mt-2">
                   <p className="text-sm text-gray-500">Learning Platform</p>
                 </div>
               </div>
             )}
           </div>
-          {/* Navigation */}
+
+          {/* ============================================
+              NAVIGATION MENU
+              ============================================ */}
           <nav className="space-y-1">
             {categories.map((category) => {
-              const isActive =
-                pathname === category.href ||
-                (category.id === "all" && pathname === "/gse-class");
+              const isActive = isActiveCategory(category.href, category.id);
 
               return (
                 <Link
@@ -157,14 +205,18 @@ export default function SidebarNavigation() {
                   } ${isCollapsed ? "justify-center" : "justify-start"}`}
                   title={isCollapsed ? category.name : undefined}
                 >
+                  {/* CATEGORY ICON */}
                   <div className={isActive ? "text-white" : category.color}>
                     {category.icon}
                   </div>
 
+                  {/* CATEGORY NAME (VISIBLE WHEN EXPANDED) */}
                   {!isCollapsed && (
                     <>
                       <span
-                        className={`ml-3 font-medium ${isActive ? "text-white" : "text-gray-700"}`}
+                        className={`ml-3 font-medium ${
+                          isActive ? "text-white" : "text-gray-700"
+                        }`}
                       >
                         {category.name}
                       </span>
@@ -175,7 +227,10 @@ export default function SidebarNavigation() {
               );
             })}
           </nav>
-          {/* Info Box (hanya visible ketika expanded) */}
+
+          {/* ============================================
+              INFO BOX (VISIBLE WHEN EXPANDED)
+              ============================================ */}
           {!isCollapsed && (
             <div className="mt-8 rounded-lg border border-blue-200 bg-blue-50 p-4">
               <h3 className="text-sm font-semibold text-primary-navy">
@@ -186,9 +241,14 @@ export default function SidebarNavigation() {
               </p>
             </div>
           )}
-          {/* Stats */}
+
+          {/* ============================================
+              STATISTICS SECTION
+              ============================================ */}
           <div
-            className={`mt-8 border-t border-gray-200 pt-6 ${isCollapsed ? "text-center" : ""}`}
+            className={`mt-8 border-t border-gray-200 pt-6 ${
+              isCollapsed ? "text-center" : ""
+            }`}
           >
             {isCollapsed ? (
               <div className="text-primary-navy">
@@ -203,9 +263,11 @@ export default function SidebarNavigation() {
           </div>
         </div>
 
-        {/* Bagian bawah (Home Link) - tetap di bawah */}
+        {/* ============================================
+            FOOTER AREA (FIXED AT BOTTOM)
+            ============================================ */}
         <div className="border-t border-gray-200">
-          {/* Home Link untuk desktop (hanya visible ketika expanded) */}
+          {/* DESKTOP HOME LINK (VISIBLE WHEN EXPANDED) */}
           {!isCollapsed && (
             <div className="hidden p-4 lg:block">
               <Link
@@ -218,7 +280,7 @@ export default function SidebarNavigation() {
             </div>
           )}
 
-          {/* Mobile back button (always visible on mobile) */}
+          {/* MOBILE HOME LINK (ALWAYS VISIBLE) */}
           <div className="p-4 lg:hidden">
             <Link
               href="/"

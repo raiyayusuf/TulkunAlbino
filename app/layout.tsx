@@ -1,29 +1,81 @@
-// app/layout.tsx
+/* ============================================
+   app/layout.tsx
+   ROOT LAYOUT COMPONENT
+   ============================================ */
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+
+// Layout Components
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 
-const inter = Inter({ subsets: ["latin"] });
+/* ============================================
+   FONT CONFIGURATION
+   ============================================ */
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
 
+/* ============================================
+   METADATA CONFIGURATION
+   ============================================ */
 export const metadata: Metadata = {
-  title: "GSE Jogja - Pusat Teknologi & Service Apple",
+  title: "GSE Jogja - Pusat Teknologi Apple",
   description:
-    "GSE Jogja menyediakan kelas teknologi, service Apple, dan penjualan perangkat Apple terpercaya di Yogyakarta.",
+    "GSE Jogja menyediakan kelas teknologi dan penjualan perangkat Apple terpercaya di Yogyakarta.",
+  keywords: [
+    "GSE Jogja",
+    "Kelas Teknologi",
+    "Apple Authorized",
+    "Koding Python",
+    "Robotika",
+  ],
+  authors: [{ name: "GSE Jogja" }],
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: "https://gsejogja.com",
+    title: "GSE Jogja - Pusat Teknologi Apple",
+    description:
+      "Pusat edukasi teknologi dan penjualan perangkat Apple terpercada di Yogyakarta.",
+    siteName: "GSE Jogja",
+  },
 };
 
+/* ============================================
+   ROOT LAYOUT COMPONENT
+   ============================================ */
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id">
-      <body className={`${inter.className} bg-white text-gray-900`}>
+    <html lang="id" className="scroll-smooth">
+      <body
+        className={`${inter.className} bg-white text-gray-900 antialiased`}
+        suppressHydrationWarning
+      >
+        {/* ============================================
+            LAYOUT STRUCTURE
+            ============================================ */}
         <div className="min-h-screen flex flex-col">
+          {/* ============================================
+              HEADER/NAVIGATION
+              ============================================ */}
           <Navbar />
+
+          {/* ============================================
+              MAIN CONTENT AREA
+              ============================================ */}
           <main className="flex-1">{children}</main>
+
+          {/* ============================================
+              FOOTER
+              ============================================ */}
           <Footer />
         </div>
       </body>

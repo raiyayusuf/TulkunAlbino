@@ -1,39 +1,69 @@
-// app/components/layout/navbar.tsx
+/* ============================================
+   app/components/layout/navbar.tsx
+   NAVBAR COMPONENT - GSE JOGJA
+   ============================================ */
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { User } from "lucide-react";
 
-const Navbar = () => {
-  const navItems = [
-    { name: "Home", href: "/" },
-    { name: "GSE Class", href: "/gse-class" },
-    { name: "GSE Mac", href: "/gse-mac" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
-  ];
+/* ============================================
+   NAVIGATION ITEMS DATA
+   ============================================ */
+const NAV_ITEMS = [
+  { name: "Home", href: "/" },
+  { name: "GSE Class", href: "/gse-class" },
+  { name: "GSE Mac", href: "/gse-mac" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+];
 
+/* ============================================
+   LOGO CONFIGURATION
+   ============================================ */
+const LOGO_CONFIG = {
+  height: "h-10",
+  width: "w-32",
+  alt: "GSE Jogja Logo",
+  src: "/logo/gse.png",
+  sizes: "128px",
+};
+
+/* ============================================
+   NAVBAR COMPONENT
+   ============================================ */
+export default function Navbar() {
+  /* ============================================
+     RENDER COMPONENT
+     ============================================ */
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white shadow-sm">
+      {/* NAVBAR CONTAINER */}
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
+          {/* ============================================
+              LOGO SECTION
+              ============================================ */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="relative h-10 w-32">
-              {/* Logo GSE Jogja */}
+            <div
+              className={`relative ${LOGO_CONFIG.height} ${LOGO_CONFIG.width}`}
+            >
               <Image
-                src="/logo/gse.png"
-                alt="GSE Jogja Logo"
+                src={LOGO_CONFIG.src}
+                alt={LOGO_CONFIG.alt}
                 fill
                 className="object-contain"
-                sizes="128px"
+                sizes={LOGO_CONFIG.sizes}
               />
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* ============================================
+              DESKTOP NAVIGATION MENU
+              ============================================ */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
@@ -44,8 +74,11 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Login/User Button */}
+          {/* ============================================
+              LOGIN/USER BUTTONS
+              ============================================ */}
           <div className="flex items-center space-x-4">
+            {/* DESKTOP LOGIN BUTTON */}
             <Link
               href="/login"
               className="hidden md:flex items-center space-x-2 rounded-lg bg-gradient-blue-green px-4 py-2 text-sm font-medium text-white transition-all hover:shadow-md"
@@ -54,7 +87,7 @@ const Navbar = () => {
               <span>Login</span>
             </Link>
 
-            {/* Mobile login icon */}
+            {/* MOBILE LOGIN ICON */}
             <Link
               href="/login"
               className="md:hidden rounded-full p-2 text-primary-navy hover:bg-gray-100"
@@ -66,6 +99,4 @@ const Navbar = () => {
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}

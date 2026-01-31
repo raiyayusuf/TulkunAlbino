@@ -1,45 +1,79 @@
-// app/(marketing)/about/page.tsx
+/* ============================================
+   app/(marketing)/about/page.tsx
+   ABOUT PAGE - TENTANG GSE JOGJA
+   ============================================ */
+
 import React from "react";
 import Link from "next/link";
 import { Users, Target, Award, Clock, MapPin, Heart } from "lucide-react";
 
+/* ============================================
+   COMPANY VALUES DATA
+   ============================================ */
+const COMPANY_VALUES = [
+  {
+    icon: <Target className="h-6 w-6" />,
+    title: "Visi",
+    description:
+      "Menjadi pusat teknologi terdepan di Yogyakarta yang mengedukasi dan melayani masyarakat dengan solusi Apple terbaik.",
+  },
+  {
+    icon: <Heart className="h-6 w-6" />,
+    title: "Misi",
+    description:
+      "Menyediakan edukasi teknologi berkualitas, layanan service profesional, dan produk Apple original dengan harga kompetitif.",
+  },
+  {
+    icon: <Award className="h-6 w-6" />,
+    title: "Komitmen",
+    description:
+      "100% produk original, garansi resmi, dan dukungan purna jual yang terpercaya.",
+  },
+];
+
+/* ============================================
+   COMPANY MILESTONES DATA
+   ============================================ */
+const COMPANY_MILESTONES = [
+  {
+    year: "2015",
+    event: "GSE Jogja didirikan sebagai komunitas belajar teknologi",
+  },
+  { year: "2017", event: "Resmi menjadi Authorized Apple Service Provider" },
+  { year: "2019", event: "Membuka kelas coding dan robotika untuk pelajar" },
+  { year: "2021", event: "Ekspansi menjadi Apple Authorized Seller" },
+  { year: "2023", event: "Meluncurkan platform belajar online GSE Class" },
+  { year: "2024", event: "Membuka cabang kedua di area edukasi Yogyakarta" },
+];
+
+/* ============================================
+   TEAM INFORMATION
+   ============================================ */
+const TEAM_INFO = {
+  location: {
+    icon: <MapPin className="h-6 w-6 text-primary-blue" />,
+    title: "Lokasi Kami",
+    description: "Yogyakarta - Pusat Teknologi & Pendidikan",
+  },
+  team: {
+    icon: <Users className="h-6 w-6 text-primary-blue" />,
+    title: "Tim Profesional",
+    description: "15+ ahli teknologi & edukator bersertifikasi",
+  },
+};
+
+/* ============================================
+   ABOUT PAGE COMPONENT
+   ============================================ */
 export default function AboutPage() {
-  const values = [
-    {
-      icon: <Target className="h-6 w-6" />,
-      title: "Visi",
-      description:
-        "Menjadi pusat teknologi terdepan di Yogyakarta yang mengedukasi dan melayani masyarakat dengan solusi Apple terbaik.",
-    },
-    {
-      icon: <Heart className="h-6 w-6" />,
-      title: "Misi",
-      description:
-        "Menyediakan edukasi teknologi berkualitas, layanan service profesional, dan produk Apple original dengan harga kompetitif.",
-    },
-    {
-      icon: <Award className="h-6 w-6" />,
-      title: "Komitmen",
-      description:
-        "100% produk original, garansi resmi, dan dukungan purna jual yang terpercaya.",
-    },
-  ];
-
-  const milestones = [
-    {
-      year: "2015",
-      event: "GSE Jogja didirikan sebagai komunitas belajar teknologi",
-    },
-    { year: "2017", event: "Resmi menjadi Authorized Apple Service Provider" },
-    { year: "2019", event: "Membuka kelas coding dan robotika untuk pelajar" },
-    { year: "2021", event: "Ekspansi menjadi Apple Authorized Seller" },
-    { year: "2023", event: "Meluncurkan platform belajar online GSE Class" },
-    { year: "2024", event: "Membuka cabang kedua di area edukasi Yogyakarta" },
-  ];
-
+  /* ============================================
+     RENDER COMPONENT
+     ============================================ */
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
+      {/* ============================================
+          HERO SECTION
+          ============================================ */}
       <div className="bg-gradient-blue-green py-16 text-white">
         <div className="container mx-auto px-4 text-center">
           <h1 className="mb-4 text-4xl font-bold md:text-5xl">
@@ -52,11 +86,16 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Content */}
+      {/* ============================================
+          MAIN CONTENT AREA
+          ============================================ */}
       <div className="container mx-auto px-4 py-12">
-        {/* Intro Section */}
+        {/* ============================================
+            INTRO SECTION
+            ============================================ */}
         <div className="mb-16">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            {/* COMPANY DESCRIPTION */}
             <div>
               <h2 className="mb-6 text-3xl font-bold text-primary-navy">
                 Siapa Kami?
@@ -83,40 +122,47 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
+
+            {/* COMPANY INFO CARD */}
             <div className="rounded-xl bg-gradient-to-br from-primary-blue/5 to-primary-green/5 p-8">
+              {/* LOCATION INFO */}
               <div className="mb-6 flex items-center">
-                <MapPin className="mr-3 h-6 w-6 text-primary-blue" />
-                <div>
+                {TEAM_INFO.location.icon}
+                <div className="ml-3">
                   <h3 className="text-lg font-semibold text-primary-navy">
-                    Lokasi Kami
+                    {TEAM_INFO.location.title}
                   </h3>
                   <p className="text-gray-600">
-                    Yogyakarta - Pusat Teknologi & Pendidikan
+                    {TEAM_INFO.location.description}
                   </p>
                 </div>
               </div>
+
+              {/* TEAM INFO */}
               <div className="flex items-center">
-                <Users className="mr-3 h-6 w-6 text-primary-blue" />
-                <div>
+                {TEAM_INFO.team.icon}
+                <div className="ml-3">
                   <h3 className="text-lg font-semibold text-primary-navy">
-                    Tim Profesional
+                    {TEAM_INFO.team.title}
                   </h3>
-                  <p className="text-gray-600">
-                    15+ ahli teknologi & edukator bersertifikasi
-                  </p>
+                  <p className="text-gray-600">{TEAM_INFO.team.description}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Values */}
+        {/* ============================================
+            VALUES SECTION
+            ============================================ */}
         <div className="mb-16">
           <h2 className="mb-8 text-center text-3xl font-bold text-primary-navy">
             Nilai & Prinsip Kami
           </h2>
+
+          {/* VALUES GRID */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {values.map((value, index) => (
+            {COMPANY_VALUES.map((value, index) => (
               <div
                 key={index}
                 className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm"
@@ -133,23 +179,31 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Timeline Milestones */}
+        {/* ============================================
+            TIMELINE SECTION
+            ============================================ */}
         <div className="mb-16">
           <h2 className="mb-8 text-center text-3xl font-bold text-primary-navy">
             Perjalanan Kami
           </h2>
+
+          {/* TIMELINE CONTAINER */}
           <div className="relative">
-            {/* Timeline line */}
+            {/* TIMELINE LINE */}
             <div className="absolute left-4 top-0 h-full w-0.5 bg-gradient-blue-green md:left-1/2 md:-translate-x-1/2"></div>
 
-            {milestones.map((milestone, index) => (
+            {/* MILESTONE ITEMS */}
+            {COMPANY_MILESTONES.map((milestone, index) => (
               <div
                 key={index}
                 className={`relative mb-8 flex items-center md:${index % 2 === 0 ? "flex-row" : "flex-row-reverse"} md:w-full`}
               >
+                {/* MILESTONE MARKER */}
                 <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-blue-green text-white">
                   <Clock className="h-4 w-4" />
                 </div>
+
+                {/* MILESTONE CONTENT */}
                 <div
                   className={`ml-6 flex-1 rounded-xl border border-gray-200 bg-white p-6 shadow-sm md:mx-6 md:w-5/12 ${index % 2 === 0 ? "md:text-right" : "md:text-left"}`}
                 >
@@ -163,7 +217,9 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* CTA */}
+        {/* ============================================
+            CALL TO ACTION SECTION
+            ============================================ */}
         <div className="rounded-2xl bg-gradient-to-r from-primary-blue to-primary-green p-8 text-center text-white">
           <h3 className="mb-4 text-2xl font-bold">
             Bergabung dengan Komunitas Kami
@@ -172,6 +228,8 @@ export default function AboutPage() {
             Ikuti kelas teknologi kami, dapatkan layanan terbaik, atau bergabung
             dalam komunitas GSE Jogja.
           </p>
+
+          {/* ACTION BUTTONS */}
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/gse-class"
