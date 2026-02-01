@@ -1,7 +1,7 @@
-// components/layout/navbar.tsx
+// components/layout/navbar.tsx - DENGAN BLOG
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, User } from "lucide-react";
@@ -9,6 +9,7 @@ import { useScroll } from "@/hooks/use-scroll";
 import MobileNav from "./mobile-nav";
 import { usePathname } from "next/navigation";
 
+// UPDATE NAV_ITEMS DENGAN BLOG
 const NAV_ITEMS = [
   { name: "Home", href: "/" },
   {
@@ -23,6 +24,7 @@ const NAV_ITEMS = [
     ],
   },
   { name: "GSE Mac", href: "/gse-mac" },
+  { name: "Blog", href: "/blog" }, // ← TAMBAH BLOG DI SINI
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
@@ -42,6 +44,12 @@ export default function Navbar() {
 
   const isHomePage = pathname === "/";
   const shouldBeTransparent = isHomePage && !isScrolled;
+
+  // Helper untuk check active link termasuk nested routes
+  const isActiveLink = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
 
   return (
     <>
@@ -77,8 +85,8 @@ export default function Navbar() {
                     <Link
                       href={item.href}
                       className={`text-sm font-medium transition-colors relative ${
-                        pathname === item.href
-                          ? "text-primary-blue" // ACTIVE PAGE: TEXT BIRU
+                        isActiveLink(item.href)
+                          ? "text-primary-blue"
                           : shouldBeTransparent
                             ? "text-gray-800 hover:text-primary-blue"
                             : "text-primary-navy hover:text-primary-blue"
@@ -86,11 +94,11 @@ export default function Navbar() {
                     >
                       {item.name}
 
-                      {/* INDICATOR STRIP - HOVER (SELALU BIRU) */}
+                      {/* INDICATOR STRIP - HOVER */}
                       <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></span>
 
-                      {/* INDICATOR STRIP - ACTIVE PAGE (SELALU BIRU) */}
-                      {pathname === item.href && (
+                      {/* INDICATOR STRIP - ACTIVE PAGE */}
+                      {isActiveLink(item.href) && (
                         <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary-blue"></span>
                       )}
                     </Link>
@@ -98,13 +106,17 @@ export default function Navbar() {
 
                   {/* Dropdown for GSE Class */}
                   {item.submenu && (
-                    <div className="absolute left-0 top-full mt-2 hidden group-hover:block">
+                    <div className="absolute left-0 top-full mt-2 hidden group-hover:block z-50">
                       <div className="rounded-lg bg-white shadow-lg border border-gray-200 p-2 min-w-[200px]">
                         {item.submenu.map((subItem) => (
                           <Link
                             key={subItem.name}
                             href={subItem.href}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-primary-blue rounded"
+                            className={`block px-4 py-2 text-sm rounded transition-colors ${
+                              pathname === subItem.href
+                                ? "bg-primary-blue/10 text-primary-blue"
+                                : "text-gray-700 hover:bg-blue-50 hover:text-primary-blue"
+                            }`}
                           >
                             {subItem.name}
                           </Link>
@@ -147,9 +159,11 @@ export default function Navbar() {
         </div>
       </nav>
 
+      {/* Mobile Navigation */}
       <MobileNav
         isOpen={isMobileNavOpen}
         onClose={() => setIsMobileNavOpen(false)}
+        navItems={NAV_ITEMS}
       />
     </>
   );

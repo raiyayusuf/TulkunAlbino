@@ -1,16 +1,16 @@
 /* ============================================
-   app/(marketing)/gse-class/layout.tsx
-   GSE CLASS LAYOUT COMPONENT
+   app/(marketing)/gse-mac/layout.tsx
+   GSE MAC LAYOUT COMPONENT
    ============================================ */
 
 import React from "react";
 import Sidebar from "@/components/layout/sidebar";
-import { gseClassSidebarConfig } from "./config/sidebar-items";
+import { gseMacSidebarConfig } from "./config/sidebar-items";
 
 /* ============================================
-   GSE CLASS LAYOUT COMPONENT
+   GSE MAC LAYOUT COMPONENT
    ============================================ */
-export default function GseClassLayout({
+export default function GseMacLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -21,7 +21,7 @@ export default function GseClassLayout({
       <div className="hidden lg:flex lg:min-h-[calc(100vh-4rem)]">
         {/* SIDEBAR CONTAINER */}
         <div className="sticky top-16 z-30 h-[calc(100vh-4rem)] border-r border-gray-200 bg-white">
-          <Sidebar {...gseClassSidebarConfig} />
+          <Sidebar {...gseMacSidebarConfig} />
         </div>
 
         {/* MAIN CONTENT AREA */}
@@ -35,10 +35,10 @@ export default function GseClassLayout({
         {/* MOBILE HEADER */}
         <div className="sticky top-16 z-40 border-b border-gray-200 bg-white px-4 py-3">
           <div className="text-lg font-bold text-primary-navy">
-            GSE Class - Katalog Kelas
+            GSE Mac - Apple Products
           </div>
           <p className="mt-1 text-sm text-gray-600">
-            Pilih kategori kelas teknologi
+            Authorized Apple Store in Yogyakarta
           </p>
         </div>
 

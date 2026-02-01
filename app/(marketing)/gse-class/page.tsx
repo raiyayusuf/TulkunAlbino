@@ -7,7 +7,7 @@ import React from "react";
 import CategoryCard from "./category-card";
 
 /* ============================================
-   DATA CONFIGURATION
+   CATEGORIES DATA
    ============================================ */
 const categories = [
   {
@@ -63,23 +63,17 @@ const categories = [
 ];
 
 /* ============================================
-   WHATSAPP CONTACT CONFIGURATION
+   WHATSAPP CONFIG
    ============================================ */
-const WHATSAPP_NUMBER = "628xxxxxxxxxx";
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
+const WHATSAPP_URL = "https://wa.me/628xxxxxxxxxx";
 
 /* ============================================
    GSE CLASS HOMEPAGE COMPONENT
    ============================================ */
 export default function GseClassPage() {
-  /* ============================================
-     RENDER COMPONENT
-     ============================================ */
   return (
     <div>
-      {/* ============================================
-          HEADER SECTION
-          ============================================ */}
+      {/* HEADER SECTION */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-primary-navy">
           GSE Class - Katalog Kelas
@@ -90,13 +84,11 @@ export default function GseClassPage() {
         </p>
       </div>
 
-      {/* ============================================
-          DEVELOPMENT NOTICE SECTION
-          ============================================ */}
-      <div className="mb-8 rounded-xl border border-blue-200 bg-blue-50 p-6">
+      {/* DEVELOPMENT NOTICE */}
+      <div className="mb-8 rounded-xl border border-blue-200 bg-gradient-hero p-6">
         <div className="flex items-start">
-          <div className="mr-4 mt-1 rounded-full bg-blue-100 p-2">
-            <span className="text-xl">🚀</span>
+          <div className="mr-4 flex-shrink-0 rounded-full bg-primary-blue p-2">
+            <span className="text-xl text-white">🚀</span>
           </div>
           <div>
             <h2 className="text-xl font-bold text-primary-navy">
@@ -111,9 +103,7 @@ export default function GseClassPage() {
         </div>
       </div>
 
-      {/* ============================================
-          CATEGORIES GRID SECTION
-          ============================================ */}
+      {/* CATEGORIES GRID */}
       <div className="mb-8">
         <h2 className="mb-6 text-2xl font-bold text-primary-navy">
           Semua Kategori Kelas
@@ -125,9 +115,7 @@ export default function GseClassPage() {
         </div>
       </div>
 
-      {/* ============================================
-          CALL TO ACTION SECTION
-          ============================================ */}
+      {/* CALL TO ACTION */}
       <div className="rounded-2xl bg-gradient-to-r from-primary-blue/10 to-primary-green/10 p-8">
         <div className="text-center">
           <h3 className="mb-4 text-2xl font-bold text-primary-navy">
