@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String    @map("password_hash")
+  name          String?
+  role          String    @default("user")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  blogs         Blog[]
+
+  @@map("users")
+}
+
+model BlogCategory {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  blogs       Blog[]
+
+  @@map("blog_categories")
+}
+
+model Blog {
+  id                String        @id @default(cuid())
+  title             String
+  slug              String        @unique
+  content           String
+  excerpt           String?
+  featuredImageUrl  String?       @map("featured_image_url")
+  authorName        String        @default("GSE Jogja") @map("author_name")
+  status            String        @default("draft")
+  views             Int           @default(0)
+  publishedAt       DateTime?     @map("published_at")
+  createdAt         DateTime      @default(now()) @map("created_at")
+  updatedAt         DateTime      @updatedAt @map("updated_at")
+
+  categoryId        String?       @map("category_id")
+  userId            String?       @map("user_id")
+
+  category          BlogCategory? @relation(fields: [categoryId], references: [id])
+  user              User?         @relation(fields: [userId], references: [id])
+  images            BlogImage[]
+
+  @@map("blogs")
+}
+
+model BlogImage {
+  id        String   @id @default(cuid())
+  blogId    String   @map("blog_id")
+  imageUrl  String   @map("image_url")
+  fileName  String?  @map("file_name")
+  fileSize  Int?
+  uploadedAt DateTime @default(now()) @map("uploaded_at")
+
+  blog      Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  @@map("blog_images")
+}

@@ -1,332 +1,197 @@
-tulkun-albino/
-├── 📁 app/                    # FRONTEND + BACKEND (App Router)
-├── 📁 components/            # React Components
-├── 📁 lib/                  # Core Utilities
-├── 📁 hooks/                # Custom Hooks
-├── 📁 types/                # TypeScript Types
-├── 📁 utils/                # Helper Functions
-├── 📁 public/               # Static Assets
-├── 📁 prisma/               # Database Layer
-├── 📁 middleware/           # Edge Functions
-├── 📄 .env.local           # Environment Variables
-├── 📄 next.config.ts       # Next.js Config
-├── 📄 tailwind.config.ts   # Tailwind Config
-├── 📄 package.json         # Dependencies
-└── 📄 README.md            # Documentation
+TULKUNALBINO/
+├── .next/
+├── .vscode/
+│   └── settings.json
+├── anomali/
+│   └── noted.txt
+├── app/
+│   ├── (auth)/
+│   │   ├── login/
+│   │   │   └── page.tsx
+│   │   └── register/
+│   │       └── page.tsx
+│   ├── (dashboard)/
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── (marketing)/
+│   │   ├── about/
+│   │   │   └── page.tsx
+│   │   ├── blog/
+│   │   │   └── page.tsx
+│   │   ├── contact/
+│   │   │   ├── success/
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── gse-class/
+│   │   │   ├── [id]/
+│   │   │   │   └── page.tsx
+│   │   │   ├── category/
+│   │   │   │   ├── coding-python/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── coding-scratch/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── design-graphics/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── iot/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── robot-innovation/
+│   │   │   │       └── page.tsx
+│   │   │   └── config/
+│   │   │       ├── sidebar-items.ts
+│   │   │       ├── category-card.tsx
+│   │   │       ├── layout.tsx
+│   │   │       └── page.tsx
+│   │   └── gse-mac/
+│   │       ├── components/
+│   │       │   ├── benefits-section.tsx
+│   │       │   ├── hero-section.tsx
+│   │       │   ├── navigation-links.tsx
+│   │       │   ├── price-list-cta.tsx
+│   │       │   ├── product-grid.tsx
+│   │       │   ├── store-banner.tsx
+│   │       │   └── store-info.tsx
+│   │       └── config/
+│   │           ├── benefits.ts
+│   │           ├── products.ts
+│   │           ├── sidebar-items.ts
+│   │           ├── layout.tsx
+│   │           └── page.tsx
+│   ├── admin/
+│   │   ├── blog/
+│   │   ├── courses/
+│   │   ├── orders/
+│   │   ├── products/
+│   │   ├── settings/
+│   │   └── users/
+│   │       ├── page.tsx
+│   │       ├── layout.tsx
+│   │       └── page.tsx
+│   ├── api/
+│   │   └── auth/
+│   │       └── login/
+│   │           └── route.ts
+│   ├── [...nextauth]/
+│   │   └── route.ts
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── middleware.ts
+│   ├── page.tsx
+│   ├── providers.tsx
+│   └── swiper-styles.css
+├── components/
+│   ├── layout/
+│   │   ├── container.tsx
+│   │   ├── footer.tsx
+│   │   ├── hero-section.tsx
+│   │   ├── mobile-nav.tsx
+│   │   ├── navbar.tsx
+│   │   └── sidebar.tsx
+│   └── ui/
+│       ├── avatar.tsx
+│       ├── badge.tsx
+│       ├── button.tsx
+│       ├── card.tsx
+│       ├── dropdown-menu.tsx
+│       ├── form.tsx
+│       ├── image-slider.tsx
+│       ├── input.tsx
+│       ├── logo-marquee.tsx
+│       └── navigation-menu.tsx
+├── hooks/
+│   ├── use-api.ts
+│   ├── use-auth.ts
+│   ├── use-debounce.ts
+│   ├── use-form.ts
+│   ├── use-media-query.ts
+│   ├── use-scroll.ts
+│   └── use-window-size.ts
+├── lib/
+│   └── supabase/
+│       ├── client.ts
+│       ├── server.ts
+│       └── prisma.ts
+├── node_modules/
+├── prisma/
+│   ├── schema.prisma
+│   └── seed.ts
+├── public/
+│   ├── logo/
+│   │   ├── gse-class.png
+│   │   ├── gse-mac.png
+│   │   ├── gse-service.png
+│   │   ├── gse.png
+│   │   ├── logo-c.png
+│   │   └── logo-g.png
+│   └── school/
+│       ├── cairo-logo.jpg
+│       ├── depok3-logo.jpeg
+│       ├── gda2-logo.png
+│       ├── gis-logo.webp
+│       ├── gistrav-logo.png
+│       ├── intis-logo.png
+│       ├── kinderstation-logo.png
+│       ├── pakem4-logo.png
+│       ├── sahabatqu-logo.jpeg
+│       └── salman-logo.png
+├── types/
+│   ├── admin.ts
+│   ├── auth.ts
+│   ├── form.ts
+│   ├── index.ts
+│   ├── next-auth.d.ts
+│   └── user.ts
+├── .env
+├── .env.local
+├── .gitignore
+├── eslint.config.mjs
+├── next-env.d.ts
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── prisma.config.ts
+├── README.md
+├── tailwind.config.ts
+└── tsconfig.json
 
 ============================
-
-app/
-├── 📁 (auth)/              # Authentication Pages (Group)
-│   ├── 📄 login/page.tsx           # Login Page
-│   ├── 📄 register/page.tsx        # Register Page
-│   └── 📄 layout.tsx               # Auth Layout (no navbar)
-│
-├── 📁 (dashboard)/         # User Dashboard (Protected)
-│   ├── 📄 layout.tsx               # Dashboard Layout (sidebar)
-│   ├── 📄 page.tsx                 # Dashboard Home
-│   ├── 📁 my-classes/             # User's enrolled classes
-│   │   └── 📄 page.tsx
-│   ├── 📁 my-orders/              # User's purchase history
-│   │   └── 📄 page.tsx
-│   ├── 📁 service-tickets/        # User's repair tickets
-│   │   └── 📄 page.tsx
-│   └── 📁 settings/               # User settings
-│       └── 📄 page.tsx
-│
-├── 📁 (marketing)/         # Public Landing Pages
-│   ├── 📄 layout.tsx               # Marketing Layout
-│   ├── 📄 page.tsx                 # Homepage (Landing)
-│   ├── 📁 class/                  # Class Pages
-│   │   ├── 📄 page.tsx            # Class listing
-│   │   ├── 📄 [id]/page.tsx       # Class detail
-│   │   └── 📁 category/           # Class by category
-│   │       ├── 📄 iot/page.tsx
-│   │       ├── 📄 coding/page.tsx
-│   │       ├── 📄 robotics/page.tsx
-│   │       └── 📄 design/page.tsx
-│   ├── 📁 service/                # Service Pages
-│   │   ├── 📄 page.tsx            # Service listing
-│   │   ├── 📄 repair/page.tsx     # Device repair form
-│   │   ├── 📄 consultation/page.tsx # Tech consultation
-│   │   └── 📄 estimate/page.tsx   # Cost estimation
-│   ├── 📁 shop/                   # Apple Products Shop
-│   │   ├── 📄 page.tsx            # Product listing
-│   │   ├── 📄 [id]/page.tsx       # Product detail
-│   │   ├── 📄 cart/page.tsx       # Shopping cart
-│   │   └── 📄 checkout/page.tsx   # Checkout process
-│   ├── 📁 about/                  # About Pages
-│   │   ├── 📄 page.tsx            # About us
-│   │   ├── 📄 team/page.tsx       # Team members
-│   │   └── 📄 location/page.tsx   # Location & contact
-│   └── 📁 contact/                # Contact Pages
-│       ├── 📄 page.tsx            # Contact form
-│       └── 📄 success/page.tsx    # Form submission success
-│
-├── 📁 admin/               # Admin Panel (Protected)
-│   ├── 📄 layout.tsx               # Admin Layout
-│   ├── 📄 page.tsx                 # Admin Dashboard
-│   ├── 📁 classes/                # Class Management
-│   ├── 📁 users/                  # User Management
-│   ├── 📁 orders/                 # Order Management
-│   └── 📁 analytics/              # Analytics Dashboard
-│
-├── 📁 api/                 # BACKEND API ROUTES
-│   # (Detail di bagian backend)
-│
-├── 📄 layout.tsx           # Root Layout (with Navbar & Footer)
-├── 📄 page.tsx             # Homepage (redirect ke /marketing)
-├── 📄 globals.css          # Global Styles
-├── 📄 providers.tsx        # Context Providers
-└── 📄 loading.tsx          # Global Loading State
-
-============================
-
-components/
-├── 📁 ui/                  # Shadcn/ui Components (Base)
-│   ├── 📄 button.tsx
-│   ├── 📄 card.tsx
-│   ├── 📄 input.tsx
-│   ├── 📄 dialog.tsx
-│   ├── 📄 form.tsx
-│   ├── 📄 dropdown-menu.tsx
-│   ├── 📄 navigation-menu.tsx
-│   ├── 📄 avatar.tsx
-│   ├── 📄 badge.tsx
-│   ├── 📄 sheet.tsx
-│   ├── 📄 select.tsx
-│   ├── 📄 textarea.tsx
-│   ├── 📄 label.tsx
-│   ├── 📄 separator.tsx
-│   ├── 📄 skeleton.tsx
-│   ├── 📄 toast.tsx
-│   ├── 📄 toaster.tsx
-│   └── 📄 table.tsx
-│
-├── 📁 layout/              # Layout Components
-│   ├── 📄 navbar.tsx               # Main Navigation
-│   ├── 📄 navbar/mobile-nav.tsx    # Mobile Navigation
-│   ├── 📄 footer.tsx               # Site Footer
-│   ├── 📄 sidebar.tsx              # Dashboard Sidebar
-│   ├── 📄 header.tsx               # Page Header
-│   └── 📄 container.tsx            # Content Container
-│
-├── 📁 sections/            # Page Sections (Landing Page)
-│   ├── 📄 hero.tsx                 # Hero Section
-│   ├── 📄 services.tsx             # Services Showcase
-│   ├── 📄 classes.tsx              # Classes Showcase
-│   ├── 📄 apple-products.tsx       # Apple Products
-│   ├── 📄 testimonials.tsx         # Testimonials
-│   ├── 📄 cta.tsx                  # Call-to-Action
-│   ├── 📄 stats.tsx                # Statistics
-│   ├── 📄 partners.tsx             # Partners/Sponsors
-│   └── 📄 faq.tsx                  # FAQ Section
-│
-├── 📁 shared/              # Shared Components
-│   ├── 📄 logo.tsx                 # Logo Component
-│   ├── 📄 theme-toggle.tsx         # Dark/Light Mode Toggle
-│   ├── 📄 search-bar.tsx           # Search Functionality
-│   ├── 📄 breadcrumbs.tsx          # Navigation Breadcrumbs
-│   ├── 📄 pagination.tsx           # Pagination Controls
-│   ├── 📄 loading-spinner.tsx      # Loading Indicator
-│   ├── 📄 error-boundary.tsx       # Error Handling
-│   ├── 📄 empty-state.tsx          # Empty State Display
-│   └── 📄 back-button.tsx          # Back Navigation
-│
-├── 📁 forms/               # Form Components
-│   ├── 📄 login-form.tsx           # Login Form
-│   ├── 📄 register-form.tsx        # Register Form
-│   ├── 📄 class-enroll-form.tsx    # Class Enrollment
-│   ├── 📄 service-form.tsx         # Service Request
-│   ├── 📄 checkout-form.tsx        # Checkout Process
-│   ├── 📄 contact-form.tsx         # Contact Form
-│   └── 📄 newsletter-form.tsx      # Newsletter Signup
-│
-├── 📁 cards/               # Card Components
-│   ├── 📄 class-card.tsx           # Class Display Card
-│   ├── 📄 product-card.tsx         # Product Display Card
-│   ├── 📄 service-card.tsx         # Service Display Card
-│   ├── 📄 testimonial-card.tsx     # Testimonial Card
-│   ├── 📄 team-card.tsx            # Team Member Card
-│   └── 📄 dashboard-card.tsx       # Dashboard Stats Card
-│
-└── 📁 icons/               # Custom Icons
-    ├── 📄 apple-icon.tsx           # Apple Logo
-    ├── 📄 coding-icon.tsx          # Coding Icon
-    ├── 📄 iot-icon.tsx             # IoT Icon
-    ├── 📄 robotics-icon.tsx        # Robotics Icon
-    └── 📄 design-icon.tsx          # Design Icon
-
-============================
-
-app/api/
-├── 📁 auth/                # Authentication
-│   ├── 📄 [...nextauth]/route.ts   # NextAuth Routes
-│   ├── 📄 register/route.ts        # Custom Registration
-│   └── 📄 logout/route.ts          # Logout Endpoint
-│
-├── 📁 classes/             # Class Management
-│   ├── 📄 route.ts                  # GET/POST classes
-│   ├── 📄 [id]/route.ts             # GET/PUT/DELETE class
-│   ├── 📄 [id]/enroll/route.ts     # Enroll in class
-│   ├── 📄 categories/route.ts       # Get class categories
-│   └── 📄 featured/route.ts        # Get featured classes
-│
-├── 📁 enrollments/         # Enrollment Management
-│   ├── 📄 route.ts                  # GET user enrollments
-│   ├── 📄 [id]/route.ts             # Update enrollment
-│   └── 📄 [id]/cancel/route.ts     # Cancel enrollment
-│
-├── 📁 services/            # Service Management
-│   ├── 📄 route.ts                  # POST service ticket
-│   ├── 📄 [id]/route.ts             # GET/UPDATE ticket
-│   ├── 📄 types/route.ts            # Get service types
-│   └── 📄 estimate/route.ts         # Cost estimation
-│
-├── 📁 products/            # Product Management
-│   ├── 📄 route.ts                  # GET/POST products
-│   ├── 📄 [id]/route.ts             # GET/PUT/DELETE product
-│   ├── 📄 categories/route.ts       # Get product categories
-│   ├── 📄 featured/route.ts        # Get featured products
-│   └── 📄 search/route.ts          # Product search
-│
-├── 📁 orders/              # Order Management
-│   ├── 📄 route.ts                  # POST create order
-│   ├── 📄 [id]/route.ts             # GET/UPDATE order
-│   ├── 📄 [id]/payment/route.ts    # Process payment
-│   ├── 📄 [id]/cancel/route.ts     # Cancel order
-│   └── 📄 user/route.ts            # Get user orders
-│
-├── 📁 cart/                # Shopping Cart
-│   ├── 📄 route.ts                  # GET/POST cart
-│   ├── 📄 [id]/route.ts             # UPDATE/DELETE cart item
-│   └── 📄 clear/route.ts           # Clear cart
-│
-├── 📁 upload/              # File Upload
-│   ├── 📄 image/route.ts            # Image upload
-│   ├── 📄 avatar/route.ts           # Avatar upload
-│   └── 📄 product-image/route.ts    # Product image upload
-│
-├── 📁 admin/               # Admin Endpoints
-│   ├── 📄 analytics/route.ts        # Dashboard analytics
-│   ├── 📄 users/route.ts           # User management
-│   ├── 📄 reports/route.ts         # Generate reports
-│   └── 📄 settings/route.ts        # Admin settings
-│
-├── 📁 contact/             # Contact Form
-│   └── 📄 route.ts                  # POST contact message
-│
-└── 📄 health/route.ts              # Health check endpoint
-
-============================
-
-lib/
-├── 📄 db.ts                       # Database Client (Prisma)
-├── 📄 auth.ts                     # Authentication Config
-├── 📄 env.ts                      # Environment Validation
-├── 📄 query-client.ts             # React Query Client
-├── 📄 mailer.ts                   # Email Service
-├── 📄 payment.ts                  # Payment Gateway
-├── 📄 storage.ts                  # File Storage (Cloudinary/S3)
-├── 📄 validation.ts               # Validation Schemas (Zod)
-├── 📄 rate-limit.ts               # Rate Limiting
-├── 📄 logger.ts                   # Logging Utility
-├── 📄 cache.ts                    # Caching (Redis/Upstash)
-│
-├── 📁 utils/                      # Utility Functions
-│   ├── 📄 format.ts               # Formatting functions
-│   ├── 📄 string.ts               # String utilities
-│   ├── 📄 date.ts                 # Date utilities
-│   ├── 📄 currency.ts             # Currency formatting
-│   └── 📄 api-response.ts         # Standard API responses
-│
-├── 📁 config/                     # Configuration Files
-│   ├── 📄 site.ts                 # Site configuration
-│   ├── 📄 nav.ts                  # Navigation configuration
-│   ├── 📄 services.ts             # Services configuration
-│   └── 📄 products.ts             # Products configuration
-│
-└── 📁 middleware/                 # Server Middleware
-    ├── 📄 auth-middleware.ts      # Authentication middleware
-    ├── 📄 role-middleware.ts      # Role-based access
-    └── 📄 validation-middleware.ts # Request validation
-
-============================
-
-types/
-├── 📄 index.ts                    # Main exports
-├── 📄 user.ts                     # User types
-├── 📄 class.ts                    # Class types
-├── 📄 product.ts                  # Product types
-├── 📄 order.ts                    # Order types
-├── 📄 service.ts                  # Service types
-├── 📄 auth.ts                     # Authentication types
-├── 📄 api.ts                      # API response types
-├── 📄 form.ts                     # Form types
-└── 📄 payment.ts                  # Payment types
-
-============================
-
-hooks/
-├── 📄 use-auth.ts                 # Authentication hook
-├── 📄 use-theme.ts                # Theme toggle hook
-├── 📄 use-media-query.ts          # Responsive hook
-├── 📄 use-debounce.ts             # Debounce hook
-├── 📄 use-local-storage.ts        # Local storage hook
-├── 📄 use-api.ts                  # API call hook
-├── 📄 use-form.ts                 # Form handling hook
-├── 📄 use-toast.ts                # Toast notification hook
-├── 📄 use-cart.ts                 # Shopping cart hook
-└── 📄 use-window-size.ts          # Window size hook
-
-============================
-
-prisma/
-├── 📄 schema.prisma              # Database Schema
-├── 📄 seed.ts                    # Seed Data
-├── 📄 migrations/                # Migration Files
-│   └── 📄 [timestamp]_init/      # Auto-generated
-│       └── 📄 migration.sql
-└── 📄 .env                       # Database connection (gitignored)
-
-============================
-
-styles/
-├── 📄 globals.css                # Global styles
-├── 📄 components.css             # Component styles
-├── 📄 utilities.css              # Utility classes
-└── 📄 themes/                    # Theme variations
-    ├── 📄 light.css              # Light theme
-    └── 📄 dark.css               # Dark theme
-
-============================
-
-./
-├── 📄 .github/                   # GitHub Actions
-│   └── 📁 workflows/
-│       ├── 📄 ci.yml            # Continuous Integration
-│       ├── 📄 cd.yml            # Continuous Deployment
-│       └── 📄 tests.yml         # Test Runner
-│
-├── 📄 docker/                    # Docker Configuration
-│   ├── 📄 Dockerfile            # Production Dockerfile
-│   ├── 📄 docker-compose.yml    # Local development
-│   └── 📄 nginx.conf            # Nginx configuration
-│
-├── 📄 scripts/                   # Build/Deploy Scripts
-│   ├── 📄 build.sh              # Build script
-│   ├── 📄 deploy.sh             # Deploy script
-│   └── 📄 seed-production.sh    # Production seed
-│
-└── 📄 vercel.json               # Vercel Configuration
-
+#0488d2 - rgb(4, 136, 210)
+#01d183 - rgb(1, 209, 131)
+#06112d - rgb(6, 17, 45)
 ============================
 npm install
 npm install lucide-react
 npm install swiper
 npm install -D @types/swiper
+----Database------
+npm install @supabase/supabase-js @supabase/ssr
+npm install next-auth @auth/prisma-adapter
+npm install prisma@5.0.0 @prisma/client@5.0.0
+npm install @tiptap/react @tiptap/starter-kit @tiptap/extension-image
+npm install bcryptjs
+npm install date-fns
+npx prisma generate
+npm install --save-dev prisma dotenv
+npm install next-auth@4.24.7 (kalo Next.js 12-14)
+npm install next-auth@beta (karena gw install yang terbaru Next.js 16)
 ============================
-
-#0488d2 - rgb(4, 136, 210)
-#01d183 - rgb(1, 209, 131)
-#06112d - rgb(6, 17, 45)
+npx create-next-app@latest gse-jogja --typescript --tailwind --app
+cd gse-jogja
+npm install @supabase/supabase-js @supabase/ssr
+npm install @tiptap/react @tiptap/starter-kit
+npm install next-auth @auth/prisma-adapter prisma
+npm install lucide-react date-fns
+============================
+Organization : gse-jogja
+Project Name : gse-jogja-admin
+Database Password : GSEJogjaSecure2026$!
+Region : Asia-Pacific
+Project URL : https://goczserhnlkmpyidjibq.supabase.co
+Publishable API Key : sb_publishable_x9-wpgiaRMC3FewnpzpL7g_pa4AFhip 
+Secret keys : sb_secret_ivEjLTL_cCyaqP1R5psj3w_p-URSEW6
+============================
+(Neon Tech)
+connection string : psql 'postgresql://neondb_owner:npg_wLZx6z9EnimF@ep-green-firefly-a1fa7ycw-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+passwordless auth : psql -h pg.neon.tech
+============================

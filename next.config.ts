@@ -1,15 +1,29 @@
-// import type { NextConfig } from "next";
-
-// const nextConfig: NextConfig = {
-//   /* config options here */
-// };
-
-// export default nextConfig;
-
-// next.config.ts
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+// Extend NextConfig type
+interface TurbopackRule {
+  loaders: string[];
+  as: string;
+}
+
+interface TurbopackConfig {
+  rules?: Record<string, TurbopackRule>;
+}
+
+type NextConfigWithTurbo = NextConfig & {
+  turbo?: TurbopackConfig;
+};
+
+const nextConfig: NextConfigWithTurbo = {
+  turbo: {
+    rules: {
+      "*.crt": {
+        loaders: ["raw-loader"],
+        as: "*.txt",
+      },
+    },
+  },
+
   images: {
     remotePatterns: [
       {
@@ -29,17 +43,6 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
-  // Optional: Untuk development bisa tambah ini jika masih ada error
-  // experimental: {
-  //   turbo: {
-  //     rules: {
-  //       "*.svg": {
-  //         loaders: ["@svgr/webpack"],
-  //         as: "*.js",
-  //       },
-  //     },
-  //   },
-  // },
 };
 
 export default nextConfig;

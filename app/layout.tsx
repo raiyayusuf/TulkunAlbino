@@ -1,16 +1,19 @@
 /* ============================================
    app/layout.tsx
-   ROOT LAYOUT COMPONENT
+   ROOT LAYOUT COMPONENT - UPDATED WITH PROVIDERS
    ============================================ */
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import "./swiper-styles.css"; // Jangan lupa import swiper CSS
+import "./swiper-styles.css";
 
 // Layout Components
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
+
+// Auth Providers
+import { Providers } from "./providers"; // <-- IMPORT INI
 
 /* ============================================
    FONT CONFIGURATION
@@ -61,29 +64,31 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         {/* ============================================
-            LAYOUT STRUCTURE
+            PROVIDERS WRAPPER (NEXTAUTH)
             ============================================ */}
-        <div className="min-h-screen flex flex-col">
-          {/* ============================================
-              HEADER/NAVIGATION
-              ============================================ */}
-          <Navbar />
+        <Providers>
+          <div className="min-h-screen flex flex-col">
+            {/* ============================================
+                HEADER/NAVIGATION
+                ============================================ */}
+            <Navbar />
 
-          {/* ============================================
-              SPACER UNTUK NAVBAR FIXED (INI YANG PENTING!)
-              ============================================ */}
-          <div className="h-16"></div>
+            {/* ============================================
+                SPACER UNTUK NAVBAR FIXED
+                ============================================ */}
+            <div className="h-16"></div>
 
-          {/* ============================================
-              MAIN CONTENT AREA
-              ============================================ */}
-          <main className="flex-1">{children}</main>
+            {/* ============================================
+                MAIN CONTENT AREA
+                ============================================ */}
+            <main className="flex-1">{children}</main>
 
-          {/* ============================================
-              FOOTER
-              ============================================ */}
-          <Footer />
-        </div>
+            {/* ============================================
+                FOOTER
+                ============================================ */}
+            <Footer />
+          </div>
+        </Providers>
       </body>
     </html>
   );

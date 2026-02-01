@@ -1,6 +1,6 @@
 /* ============================================
    app/(auth)/login/page.tsx
-   ENHANCED LOGIN PAGE - MASUK AKUN ADMIN
+   ENHANCED LOGIN PAGE WITH NEXTAUTH
    ============================================ */
 
 "use client";
@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { Eye, EyeOff, Mail, Lock, AlertCircle, Loader2 } from "lucide-react";
 
 /* ============================================
@@ -23,55 +24,58 @@ const LOGO_CONFIG = {
 };
 
 /* ============================================
-   ADMIN CREDENTIALS (temporary - nanti ganti dengan API)
-   ============================================ */
-const ADMIN_CREDENTIALS = {
-  email: "admin@gsejogja.com",
-  password: "AdminGSE2024!", // INI HANYA DEMO - nanti pakai database
-};
-
-/* ============================================
    LOGIN PAGE COMPONENT
    ============================================ */
 export default function LoginPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
 
   /* ============================================
-     HANDLE FORM SUBMIT
+     HANDLE FORM SUBMIT WITH NEXTAUTH
      ============================================ */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
 
-    // Simple validation
     if (!formData.email || !formData.password) {
       setError("Email dan password harus diisi");
       setIsLoading(false);
       return;
     }
 
-    // Simulate API call
-    setTimeout(() => {
-      if (
-        formData.email === ADMIN_CREDENTIALS.email &&
-        formData.password === ADMIN_CREDENTIALS.password
-      ) {
-        // Set cookie (simulate)
-        document.cookie = "admin-token=authenticated; path=/; max-age=86400"; // 1 day
-        router.push("/admin");
-      } else {
+    try {
+      const result = await signIn("credentials", {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      });
+
+      if (result?.error) {
         setError("Email atau password salah");
+        setIsLoading(false);
+        return;
       }
+
+      if (result?.ok) {
+        // Check if admin email untuk redirect ke admin
+        if (formData.email.includes("@gsejogja.com")) {
+          router.push("/admin");
+        } else {
+          router.push("/dashboard");
+        }
+        router.refresh();
+      }
+    } catch (error) {
+      setError("Terjadi kesalahan, coba lagi");
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   /* ============================================
@@ -91,11 +95,8 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gradient-to-br from-primary-blue-light/20 via-white to-primary-green-light/20 flex items-center justify-center p-4">
       {/* LOGIN CARD */}
       <div className="w-full max-w-md">
-        {/* ============================================
-            HEADER SECTION
-            ============================================ */}
+        {/* HEADER */}
         <div className="mb-8 text-center">
-          {/* LOGO */}
           <div className="inline-flex items-center justify-center mb-6">
             <div
               className={`relative ${LOGO_CONFIG.height} ${LOGO_CONFIG.width}`}
@@ -110,19 +111,15 @@ export default function LoginPage() {
               />
             </div>
           </div>
-
-          {/* PAGE TITLE */}
           <h1 className="text-3xl font-bold text-primary-navy mb-2">
-            Admin Login
+            Masuk ke Akun
           </h1>
           <p className="text-gray-600">
-            Masuk ke dashboard administrator GSE Jogja
+            Gunakan email dan password untuk login
           </p>
         </div>
 
-        {/* ============================================
-            LOGIN FORM
-            ============================================ */}
+        {/* LOGIN FORM */}
         <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-lg">
           {error && (
             <div className="mb-6 rounded-lg bg-red-50 p-4 border border-red-200">
@@ -137,7 +134,7 @@ export default function LoginPage() {
             {/* EMAIL INPUT */}
             <div>
               <label className="mb-2 block text-sm font-medium text-gray-700">
-                Email Admin
+                Email
               </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
@@ -147,7 +144,7 @@ export default function LoginPage() {
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full rounded-lg border border-gray-300 bg-gray-50 py-3 pl-10 pr-4 text-gray-900 focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20"
-                  placeholder="admin@gsejogja.com"
+                  placeholder="email@example.com"
                   required
                   disabled={isLoading}
                 />
@@ -203,7 +200,7 @@ export default function LoginPage() {
                 disabled={isLoading}
               />
               <label htmlFor="remember" className="ml-2 text-sm text-gray-700">
-                Ingat saya di perangkat ini
+                Ingat saya
               </label>
             </div>
 
@@ -219,39 +216,36 @@ export default function LoginPage() {
                   Memproses...
                 </div>
               ) : (
-                "Masuk ke Dashboard"
+                "Masuk"
               )}
             </button>
           </form>
+
+          {/* REGISTER LINK */}
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-500">
+              Belum punya akun?{" "}
+              <Link
+                href="/register"
+                className="font-medium text-primary-blue hover:underline"
+              >
+                Daftar di sini
+              </Link>
+            </p>
+          </div>
 
           {/* SECURITY NOTE */}
           <div className="mt-6 rounded-lg bg-blue-50 p-4 border border-blue-100">
             <div className="flex items-start">
               <AlertCircle className="h-5 w-5 text-blue-500 mt-0.5 mr-2 flex-shrink-0" />
               <p className="text-sm text-blue-700">
-                Pastikan Anda menggunakan jaringan yang aman. Akses admin hanya
-                diperbolehkan untuk staf GSE Jogja.
+                Admin login: gunakan email @gsejogja.com
               </p>
             </div>
           </div>
-
-          {/* FOOTER LINKS */}
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-500">
-              Butuh bantuan?{" "}
-              <a
-                href="mailto:support@gsejogja.com"
-                className="font-medium text-primary-blue hover:underline"
-              >
-                Hubungi support
-              </a>
-            </p>
-          </div>
         </div>
 
-        {/* ============================================
-            BACK TO HOME
-            ============================================ */}
+        {/* BACK TO HOME */}
         <div className="mt-8 text-center">
           <Link
             href="/"
@@ -263,7 +257,7 @@ export default function LoginPage() {
 
         {/* VERSION INFO */}
         <div className="mt-8 text-center text-xs text-gray-400">
-          <p>GSE Jogja Admin Panel v1.0 • © {new Date().getFullYear()}</p>
+          <p>GSE Jogja v1.0 • © {new Date().getFullYear()}</p>
         </div>
       </div>
     </div>
