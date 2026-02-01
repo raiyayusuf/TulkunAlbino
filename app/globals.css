@@ -1,4 +1,4 @@
-/* app/globals.css */
+/* app/globals.css - NO BLANK SPACE MARQUEE */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,13 +6,12 @@
 :root {
   --foreground-rgb: 6, 17, 45;
   --background-rgb: 255, 255, 255;
-  --navbar-height: 4rem; /* 64px */
+  --navbar-height: 4rem;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
-  /* Scroll padding untuk anchor links */
   scroll-padding-top: calc(var(--navbar-height) + 1rem);
 }
 
@@ -35,7 +34,7 @@ html {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Gradient text for better contrast */
+/* Gradient text */
 .gradient-text {
   @apply bg-gradient-gse bg-clip-text text-transparent;
 }
@@ -56,4 +55,37 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #01d183;
+}
+
+/* ============================== */
+/* NO BLANK SPACE MARQUEE */
+/* ============================== */
+@keyframes marquee-no-gap {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 3)); /* Geser 33.33% (1 set dari 3) */
+  }
+}
+
+/* PERFECT MARQUEE - NO GAP */
+.marquee-perfect {
+  display: flex;
+  width: max-content;
+  animation: marquee-no-gap 15s linear infinite;
+}
+
+/* PAUSE ON HOVER */
+.marquee-perfect:hover {
+  animation-play-state: paused;
+}
+
+/* Untuk kecepatan berbeda */
+.marquee-perfect-fast {
+  animation: marquee-no-gap 10s linear infinite;
+}
+
+.marquee-perfect-slow {
+  animation: marquee-no-gap 20s linear infinite;
 }
