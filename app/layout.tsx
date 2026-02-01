@@ -6,6 +6,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "./swiper-styles.css"; // Jangan lupa import swiper CSS
 
 // Layout Components
 import Navbar from "@/components/layout/navbar";
@@ -67,6 +68,11 @@ export default function RootLayout({
               HEADER/NAVIGATION
               ============================================ */}
           <Navbar />
+
+          {/* ============================================
+              SPACER UNTUK NAVBAR FIXED (INI YANG PENTING!)
+              ============================================ */}
+          <div className="h-16"></div>
 
           {/* ============================================
               MAIN CONTENT AREA

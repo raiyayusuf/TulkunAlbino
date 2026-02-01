@@ -6,11 +6,38 @@
 :root {
   --foreground-rgb: 6, 17, 45;
   --background-rgb: 255, 255, 255;
+  --navbar-height: 4rem; /* 64px */
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
+  /* Scroll padding untuk anchor links */
+  scroll-padding-top: calc(var(--navbar-height) + 1rem);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Gradient text for better contrast */
+.gradient-text {
+  @apply bg-gradient-gse bg-clip-text text-transparent;
 }
 
 /* Custom scrollbar */

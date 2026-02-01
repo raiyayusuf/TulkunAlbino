@@ -1,18 +1,11 @@
-/* ============================================
-   app/page.tsx
-   HOMEPAGE COMPONENT - GSE JOGJA
-   ============================================ */
+// app/page.tsx
+"use client";
 
 import React from "react";
+import HeroSection from "@/components/layout/hero-section";
 import Link from "next/link";
 
-/* ============================================
-   HOME PAGE COMPONENT
-   ============================================ */
 export default function HomePage() {
-  /* ============================================
-     DATA CONFIGURATION
-     ============================================ */
   const services = [
     {
       title: "GSE Class",
@@ -34,96 +27,94 @@ export default function HomePage() {
     { name: "Contact", path: "/contact" },
   ];
 
-  /* ============================================
-     RENDER COMPONENT
-     ============================================ */
   return (
-    <div className="container mx-auto px-4 py-12">
-      {/* ============================================
-          HERO SECTION
-          ============================================ */}
-      <section className="mb-16 text-center">
-        <div className="mb-8">
-          <h1 className="mb-4 text-4xl font-bold text-primary-navy md:text-5xl">
-            Selamat Datang di{" "}
-            <span className="bg-gradient-gse bg-clip-text text-transparent">
-              GSE Jogja
-            </span>
-          </h1>
-          <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            Pusat edukasi teknologi dan penjualan perangkat Apple terpercaya di
-            Yogyakarta.
-          </p>
-        </div>
+    <div>
+      {/* HERO SECTION */}
+      <HeroSection />
 
-        {/* SERVICES GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {services.map((service) => (
-            <div
-              key={service.title}
-              className={`rounded-xl border border-gray-200 p-6 transition-all hover:shadow-lg ${
-                service.color === "blue"
-                  ? "hover:border-primary-blue"
-                  : "hover:border-primary-navy"
-              }`}
-            >
-              <h3 className="mb-3 text-xl font-semibold text-primary-navy">
-                {service.title}
-              </h3>
-              <p className="text-gray-600">{service.description}</p>
+      {/* REST OF THE PAGE */}
+      <div className="container mx-auto px-4 py-12">
+        {/* SERVICES SECTION */}
+        <section className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-primary-navy mb-4">
+              Layanan Kami
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Menyediakan berbagai layanan teknologi untuk kebutuhan edukasi dan
+              bisnis
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {services.map((service) => (
               <Link
+                key={service.title}
                 href={service.href}
-                className="mt-4 inline-block text-sm font-medium text-primary-blue hover:underline"
+                className={`rounded-xl border border-gray-200 p-8 transition-all hover:shadow-xl hover:-translate-y-1 ${
+                  service.color === "blue"
+                    ? "hover:border-primary-blue"
+                    : "hover:border-primary-navy"
+                }`}
               >
-                Selengkapnya →
+                <h3 className="mb-4 text-2xl font-bold text-primary-navy">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 mb-6">{service.description}</p>
+                <div className="text-primary-blue font-medium hover:underline">
+                  Jelajahi Layanan →
+                </div>
               </Link>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
 
-      {/* ============================================
-          COMING SOON SECTION
-          ============================================ */}
-      <section className="rounded-2xl bg-gradient-to-br from-primary-blue/5 to-primary-green/5 p-8 text-center">
-        <div className="mb-4 inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-primary-blue shadow-sm">
-          🚀 Sedang dalam Pengembangan
-        </div>
+        {/* COMING SOON SECTION */}
+        <section className="rounded-2xl bg-gradient-to-br from-primary-blue/5 to-primary-green/5 p-8 md:p-12 text-center mb-16">
+          <div className="mb-4 inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-primary-blue shadow-sm">
+            🚀 Sedang dalam Pengembangan
+          </div>
 
-        <h2 className="mb-4 text-2xl font-bold text-primary-navy">
-          Website Sedang Dibangun
-        </h2>
+          <h2 className="mb-4 text-2xl md:text-3xl font-bold text-primary-navy">
+            Website Sedang Dibangun
+          </h2>
 
-        <p className="mx-auto max-w-2xl text-gray-600">
-          Kami sedang bekerja keras untuk menyelesaikan website ini. Fitur-fitur
-          menarik seperti kelas online dan katalog produk akan segera hadir.
-        </p>
-      </section>
+          <p className="mx-auto max-w-2xl text-gray-600 mb-6">
+            Kami sedang bekerja keras untuk menyelesaikan website ini.
+            Fitur-fitur menarik seperti kelas online dan katalog produk akan
+            segera hadir.
+          </p>
 
-      {/* ============================================
-          QUICK LINKS SECTION
-          ============================================ */}
-      <section className="mt-16">
-        {/* SECTION HEADER */}
-        <h2 className="mb-6 text-2xl font-bold text-primary-navy text-center">
-          Menu Utama
-        </h2>
+          <div className="inline-flex items-center space-x-2 text-sm text-gray-500">
+            <div className="h-2 w-2 rounded-full bg-primary-green animate-pulse"></div>
+            <span>Update terbaru akan segera diumumkan</span>
+          </div>
+        </section>
 
-        {/* LINKS GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {quickLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.path}
-              className="rounded-lg border border-gray-200 p-4 text-center transition-all hover:border-primary-blue hover:bg-primary-blue/5"
-            >
-              <div className="text-lg font-medium text-primary-navy">
-                {link.name}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+        {/* QUICK LINKS SECTION */}
+        <section>
+          <h2 className="mb-8 text-2xl font-bold text-primary-navy text-center">
+            Menu Utama
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            {quickLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.path}
+                className="group rounded-xl border-2 border-gray-200 bg-white p-6 text-center transition-all hover:border-primary-blue hover:shadow-lg"
+              >
+                <div className="text-lg font-semibold text-primary-navy group-hover:text-primary-blue transition-colors">
+                  {link.name}
+                </div>
+                <div className="mt-2 text-sm text-gray-500 group-hover:text-primary-blue/70">
+                  Klik untuk menjelajahi →
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

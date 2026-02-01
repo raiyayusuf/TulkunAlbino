@@ -321,7 +321,10 @@ styles/
 └── 📄 vercel.json               # Vercel Configuration
 
 ============================
+npm install
 npm install lucide-react
+npm install swiper
+npm install -D @types/swiper
 ============================
 
 #0488d2 - rgb(4, 136, 210)
