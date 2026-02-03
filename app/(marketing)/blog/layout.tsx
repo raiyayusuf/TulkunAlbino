@@ -1,32 +1,31 @@
+// app\(marketing)\blog\layout.tsx
 import React from "react";
 import Sidebar from "@/components/layout/sidebar";
 import { blogSidebarConfig } from "./config/sidebar-items";
 
-interface BlogLayoutProps {
-  children: React.ReactNode;
-}
-
 export default function BlogLayout({
   children,
-}: BlogLayoutProps) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div className="min-h-screen bg-white">
-      {/* DESKTOP LAYOUT - HANYA 2 KOLOM */}
+      {/* Desktop Layout */}
       <div className="hidden lg:flex lg:min-h-[calc(100vh-4rem)]">
-        {/* SIDEBAR KIRI - LOGO & KATEGORI */}
+        {/* Sidebar */}
         <div className="sticky top-16 z-30 h-[calc(100vh-4rem)] border-r border-gray-200 bg-white">
           <Sidebar {...blogSidebarConfig} />
         </div>
 
-        {/* MAIN CONTENT AREA - TANPA SIDEBAR TENGAH */}
+        {/* Main Content */}
         <div className="flex-1 overflow-y-auto">
-          {children}
+          <div className="min-h-[calc(100vh-4rem)]">{children}</div>
         </div>
       </div>
 
-      {/* MOBILE LAYOUT */}
+      {/* Mobile Layout */}
       <div className="lg:hidden">
-        {children}
+        <div className="min-h-[calc(100vh-4rem)]">{children}</div>
       </div>
     </div>
   );
