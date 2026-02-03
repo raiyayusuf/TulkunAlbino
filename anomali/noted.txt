@@ -1,7 +1,9 @@
 TULKUNALBINO/
 ├── .next/
 ├── .vscode/
+│   └── settings.json
 ├── anomali/
+│   └── noted.txt
 ├── app/
 │   ├── (auth)/
 │   │   ├── login/
@@ -13,13 +15,15 @@ TULKUNALBINO/
 │   │   └── page.tsx
 │   ├── (marketing)/
 │   │   ├── about/
+│   │   │   ├── location/
+│   │   │   ├── team/
 │   │   │   └── page.tsx
 │   │   ├── blog/
 │   │   │   └── page.tsx
-│   │   ├── contact/
-│   │   │   ├── page.tsx
-│   │   │   └── success/
-│   │   │       └── page.tsx
+│   │   └── contact/
+│   │       ├── success/
+│   │       │   └── page.tsx
+│   │       └── page.tsx
 │   ├── gse-class/
 │   │   ├── [id]/
 │   │   │   └── page.tsx
@@ -74,6 +78,8 @@ TULKUNALBINO/
 │   ├── page.tsx
 │   └── swiper-styles.css
 ├── components/
+│   ├── cards/
+│   ├── forms/
 │   ├── layout/
 │   │   ├── container.tsx
 │   │   ├── footer.tsx
@@ -81,6 +87,8 @@ TULKUNALBINO/
 │   │   ├── mobile-nav.tsx
 │   │   ├── navbar.tsx
 │   │   └── sidebar.tsx
+│   ├── sections/
+│   ├── shared/
 │   └── ui/
 │       ├── avatar.tsx
 │       ├── badge.tsx
@@ -90,7 +98,7 @@ TULKUNALBINO/
 │       ├── form.tsx
 │       ├── image-slider.tsx
 │       ├── input.tsx
-│       ├── logo-marquee.tsx
+│       ├── logo-slider.tsx
 │       └── navigation-menu.tsx
 ├── hooks/
 │   ├── use-api.ts
@@ -100,6 +108,9 @@ TULKUNALBINO/
 │   ├── use-media-query.ts
 │   ├── use-scroll.ts
 │   └── use-window-size.ts
+├── lib/
+│   ├── middleware/
+│   └── utils/
 ├── node_modules/
 ├── public/
 │   ├── logo/
