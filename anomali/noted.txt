@@ -15,11 +15,32 @@ TULKUNALBINO/
 │   │   └── page.tsx
 │   ├── (marketing)/
 │   │   ├── about/
-│   │   │   ├── location/
-│   │   │   ├── team/
 │   │   │   └── page.tsx
 │   │   ├── blog/
-│   │   │   └── page.tsx
+│   │   │   ├── [id]/
+│   │   │   │   └── page.tsx
+│   │   │   ├── category/
+│   │   │   │   ├── edukasi/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── event/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── kegiatan/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── prestasi/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── story/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── tutorial/
+│   │   │   │       └── page.tsx
+│   │   │   ├── components/
+│   │   │   │   ├── blog-card.tsx
+│   │   │   │   └── blog-sidebar.tsx
+│   │   │   └── config/
+│   │   │       ├── blog-data.ts
+│   │   │       ├── categories.ts
+│   │   │       ├── sidebar-items.ts
+│   │   │       ├── layout.tsx
+│   │   │       └── page.tsx
 │   │   └── contact/
 │   │       ├── success/
 │   │       │   └── page.tsx
@@ -38,26 +59,26 @@ TULKUNALBINO/
 │   │   │   │   └── page.tsx
 │   │   │   └── robot-innovation/
 │   │   │       └── page.tsx
-│   │   ├── config/
-│   │   │   ├── sidebar-items.ts
-│   │   │   ├── category-card.tsx
-│   │   │   ├── layout.tsx
-│   │   │   └── page.tsx
-│   │   └── gse-mac/
-│   │       ├── components/
-│   │       │   ├── benefits-section.tsx
-│   │       │   ├── hero-section.tsx
-│   │       │   ├── navigation-links.tsx
-│   │       │   ├── price-list-cta.tsx
-│   │       │   ├── product-grid.tsx
-│   │       │   ├── store-banner.tsx
-│   │       │   └── store-info.tsx
-│   │       └── config/
-│   │           ├── benefits.ts
-│   │           ├── product.ts
-│   │           ├── sidebar-items.ts
-│   │           ├── layout.tsx
-│   │           └── page.tsx
+│   │   └── config/
+│   │       ├── sidebar-items.ts
+│   │       ├── category-card.tsx
+│   │       ├── layout.tsx
+│   │       └── page.tsx
+│   ├── gse-mac/
+│   │   ├── components/
+│   │   │   ├── benefits-section.tsx
+│   │   │   ├── hero-section.tsx
+│   │   │   ├── navigation-links.tsx
+│   │   │   ├── price-list-cta.tsx
+│   │   │   ├── product-grid.tsx
+│   │   │   ├── store-banner.tsx
+│   │   │   └── store-info.tsx
+│   │   └── config/
+│   │       ├── benefits.ts
+│   │       ├── product.ts
+│   │       ├── sidebar-items.ts
+│   │       ├── layout.tsx
+│   │       └── page.tsx
 │   ├── admin/
 │   │   ├── blog/
 │   │   ├── courses/
@@ -66,7 +87,8 @@ TULKUNALBINO/
 │   │   ├── settings/
 │   │   └── users/
 │   │       ├── page.tsx
-│   │       └── layout.tsx
+│   │       ├── layout.tsx
+│   │       └── page.tsx
 │   ├── api/
 │   │   └── auth/
 │   │       └── login/
@@ -78,8 +100,6 @@ TULKUNALBINO/
 │   ├── page.tsx
 │   └── swiper-styles.css
 ├── components/
-│   ├── cards/
-│   ├── forms/
 │   ├── layout/
 │   │   ├── container.tsx
 │   │   ├── footer.tsx
@@ -87,8 +107,6 @@ TULKUNALBINO/
 │   │   ├── mobile-nav.tsx
 │   │   ├── navbar.tsx
 │   │   └── sidebar.tsx
-│   ├── sections/
-│   ├── shared/
 │   └── ui/
 │       ├── avatar.tsx
 │       ├── badge.tsx
@@ -108,9 +126,6 @@ TULKUNALBINO/
 │   ├── use-media-query.ts
 │   ├── use-scroll.ts
 │   └── use-window-size.ts
-├── lib/
-│   ├── middleware/
-│   └── utils/
 ├── node_modules/
 ├── public/
 │   ├── logo/
@@ -122,7 +137,7 @@ TULKUNALBINO/
 │   │   └── logo-g.png
 │   └── school/
 │       ├── cairo-logo.jpg
-│       ├── depok3-logo.jpeg
+│       ├── depok3-logo.jpg
 │       ├── gda2-logo.png
 │       ├── gis-logo.webp
 │       ├── gistrav-logo.png
@@ -148,7 +163,6 @@ TULKUNALBINO/
 ├── README.md
 ├── tailwind.config.ts
 └── tsconfig.json
-
 ============================
 npm install
 npm install lucide-react
