@@ -3,7 +3,7 @@
 
 import React from "react";
 import HeroSection from "@/components/layout/hero-section";
-import AdvancedLogoMarquee from "@/components/ui/logo-marquee";
+import LogoSlider from "@/components/ui/logo-slider";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -61,7 +61,7 @@ export default function HomePage() {
       <HeroSection />
 
       {/* SCHOOL PARTNER SECTION dengan Marquee Advanced */}
-      <AdvancedLogoMarquee
+      <LogoSlider
         title="School Partner"
         subtitle="Trusted by Partnered School"
         showStats={true}

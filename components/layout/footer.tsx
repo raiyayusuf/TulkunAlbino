@@ -312,7 +312,7 @@ export default function Footer() {
               </a>
             </div>
 
-            {/* BUSINESS HOURS */}
+            {/* BUSINESS HOURS - FIXED: JANGAN SAMPAI BREAK */}
             <div className="pt-4 border-t border-white/10">
               <h4 className="text-sm font-semibold text-white mb-3">
                 Jam Operasional
@@ -321,9 +321,12 @@ export default function Footer() {
                 {BUSINESS_HOURS.map((schedule) => (
                   <li
                     key={schedule.day}
-                    className="flex justify-between text-sm text-gray-300"
+                    className="flex items-start text-sm text-gray-300"
                   >
-                    <span>{schedule.day}</span>
+                    {/* KOLOM HARI - FIX WIDTH */}
+                    <span className="w-28 flex-shrink-0">{schedule.day}</span>
+                    
+                    {/* KOLOM JAM */}
                     <span
                       className={
                         schedule.hours === "Libur"

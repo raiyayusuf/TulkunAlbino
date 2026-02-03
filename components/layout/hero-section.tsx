@@ -15,16 +15,16 @@ export default function HeroSection() {
   ];
 
   return (
-    // EXTEND BACKGROUND KE ATAS DENGAN -mt-16 pt-16
-    <section className="relative overflow-hidden bg-gradient-hero -mt-16 pt-16 pb-12 md:pt-24 md:pb-24">
+    // PERBAIKI PADDING TOP UNTUK TURUNIN KONTEN
+    <section className="relative overflow-hidden bg-gradient-hero -mt-16 pt-32 pb-12 md:pt-40 md:pb-24 min-h-screen">
       {/* Decorative elements */}
       <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary-blue/10 blur-3xl"></div>
       <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-primary-green/10 blur-3xl"></div>
 
-      <div className="container relative mx-auto px-4 z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="container relative mx-auto px-4 z-10 h-full flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center w-full">
           {/* LEFT COLUMN - Text Content */}
-          <div className="space-y-8">
+          <div className="space-y-6 md:space-y-8">
             {/* Heading */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-navy leading-tight">
               Selamat Datang di{" "}
@@ -41,7 +41,7 @@ export default function HeroSection() {
             </p>
 
             {/* Stats/Bullet Points */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
               {stats.map((stat) => (
                 <div
                   key={stat}
@@ -50,30 +50,30 @@ export default function HeroSection() {
                   <div className="flex-shrink-0">
                     <Check className="h-5 w-5 text-primary-green" />
                   </div>
-                  <span className="font-medium">{stat}</span>
+                  <span className="font-medium text-sm md:text-base">{stat}</span>
                 </div>
               ))}
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 pt-3 md:pt-4">
               <Link
                 href="/gse-class"
-                className="rounded-lg bg-gradient-gse px-6 py-3 text-center font-medium text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 active:scale-95"
+                className="rounded-lg bg-gradient-gse px-5 py-2.5 md:px-6 md:py-3 text-center font-medium text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 active:scale-95 text-sm md:text-base"
               >
                 Lihat Kelas
               </Link>
 
               <Link
                 href="/gse-mac"
-                className="rounded-lg border-2 border-primary-blue bg-white px-6 py-3 text-center font-medium text-primary-blue transition-all hover:bg-primary-blue/5 hover:border-primary-blue/80"
+                className="rounded-lg border-2 border-primary-blue bg-white px-5 py-2.5 md:px-6 md:py-3 text-center font-medium text-primary-blue transition-all hover:bg-primary-blue/5 hover:border-primary-blue/80 text-sm md:text-base"
               >
                 GSE Mac
               </Link>
 
               <Link
                 href="/contact"
-                className="rounded-lg border border-gray-300 bg-white px-6 py-3 text-center font-medium text-gray-700 transition-all hover:border-gray-400 hover:bg-gray-50"
+                className="rounded-lg border border-gray-300 bg-white px-5 py-2.5 md:px-6 md:py-3 text-center font-medium text-gray-700 transition-all hover:border-gray-400 hover:bg-gray-50 text-sm md:text-base"
               >
                 Hubungi Kami
               </Link>
