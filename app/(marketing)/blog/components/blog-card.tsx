@@ -1,166 +1,79 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Calendar, User, Clock } from "lucide-react";
-import { blogCategories } from "../config/categories";
+import { BlogPost } from "../config/blog-data";
+import { getCategoryById } from "../config/categories";
 
 interface BlogCardProps {
-  post: {
-    id: string;
-    title: string;
-    excerpt: string;
-    category: string;
-    author: string;
-    date: string;
-    readTime: string;
-    imageUrl: string;
-    slug: string;
-  };
-  variant?: "desktop" | "mobile";
+  post: BlogPost;
 }
 
-export default function BlogCard({ post, variant = "desktop" }: BlogCardProps) {
-  const category = blogCategories.find(c => c.id === post.category);
-  
-  // Format date
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('id-ID', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
-  };
+export default function BlogCard({ post }: BlogCardProps) {
+  const category = getCategoryById(post.category);
 
-  // Mobile layout
-  if (variant === "mobile") {
-    return (
-      <Link href={`/blog/${post.slug}`}>
-        <div className="group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:border-primary-blue mb-6">
-          {/* CONTENT SECTION - MOBILE FIRST */}
-          <div className="p-5">
-            {/* CATEGORY BADGE */}
-            <div className="mb-3">
-              <span className={`rounded-full px-3 py-1 text-xs font-medium text-white ${
-                category?.id === 'prestasi' ? 'bg-yellow-500' :
-                category?.id === 'kegiatan' ? 'bg-blue-500' :
-                category?.id === 'tutorial' ? 'bg-green-500' :
-                category?.id === 'event' ? 'bg-purple-500' :
-                category?.id === 'edukasi' ? 'bg-indigo-500' :
-                category?.id === 'story' ? 'bg-pink-500' :
-                'bg-gray-500'
-              }`}>
-                {category?.name}
-              </span>
-            </div>
-            
-            {/* TITLE */}
-            <h3 className="mb-3 text-lg font-bold text-primary-navy line-clamp-2 group-hover:text-primary-blue transition-colors">
-              {post.title}
-            </h3>
-
-            {/* EXCERPT */}
-            <p className="mb-4 text-gray-600 line-clamp-2 text-sm">
-              {post.excerpt}
-            </p>
-
-            {/* METADATA */}
-            <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-              <div className="flex items-center">
-                <User className="mr-1 h-3 w-3" />
-                <span className="truncate mr-3">{post.author}</span>
-                <Calendar className="mr-1 h-3 w-3" />
-                <span>{formatDate(post.date)}</span>
-              </div>
-
-              {/* READ TIME */}
-              <div className="flex items-center">
-                <Clock className="mr-1 h-3 w-3" />
-                <span>{post.readTime}</span>
-              </div>
-            </div>
-
-            {/* READ MORE */}
-            <div className="pt-4 border-t border-gray-100">
-              <span className="text-sm font-medium text-primary-blue group-hover:underline">
-                Baca selengkapnya →
-              </span>
-            </div>
-          </div>
-        </div>
-      </Link>
-    );
-  }
-
-  // Desktop layout
   return (
-    <Link href={`/blog/${post.slug}`}>
-      <div className="group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:border-primary-blue h-full flex flex-col">
-        {/* IMAGE SECTION */}
-        <div className="relative overflow-hidden h-48">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-blue/20 to-primary-green/20"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-          
-          {/* CATEGORY BADGE */}
-          <div className="absolute top-4 left-4 z-10">
-            <span className={`rounded-full px-3 py-1 text-xs font-medium text-white ${
-              category?.id === 'prestasi' ? 'bg-yellow-500' :
-              category?.id === 'kegiatan' ? 'bg-blue-500' :
-              category?.id === 'tutorial' ? 'bg-green-500' :
-              category?.id === 'event' ? 'bg-purple-500' :
-              category?.id === 'edukasi' ? 'bg-indigo-500' :
-              category?.id === 'story' ? 'bg-pink-500' :
-              'bg-gray-500'
-            }`}>
-              {category?.name}
-            </span>
-          </div>
-          
-          {/* PLACEHOLDER IMAGE */}
-          <div className="flex h-full items-center justify-center">
-            <div className="text-4xl text-gray-300">📝</div>
-          </div>
+    <Link href={`/blog/${post.id}`}>
+      <div className="group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:border-primary-blue hover:shadow-md">
+        {/* Image - Kurangi height untuk 3 kolom */}
+        <div className="relative h-40 w-full overflow-hidden md:h-44">
+          {post.image ? (
+            <Image
+              src={post.image}
+              alt={post.title}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center bg-gradient-hero">
+              <span className="text-3xl">📝</span>
+            </div>
+          )}
+
+          {/* Category Badge */}
+          {category && (
+            <div className="absolute left-3 top-3 z-10">
+              <span
+                className={`rounded-full px-2 py-1 text-xs font-semibold ${category.bgColor} ${category.color}`}
+              >
+                {category.name}
+              </span>
+            </div>
+          )}
         </div>
 
-        {/* CONTENT SECTION */}
-        <div className="p-6 flex-1 flex flex-col">
-          {/* TITLE */}
-          <h3 className="mb-3 text-lg font-bold text-primary-navy line-clamp-2 group-hover:text-primary-blue transition-colors">
+        {/* Content - Kurangi padding */}
+        <div className="p-4">
+          {/* Title - Kurangi font size */}
+          <h3 className="mb-2 text-lg font-bold text-primary-navy group-hover:text-primary-blue transition-colors line-clamp-2">
             {post.title}
           </h3>
 
-          {/* EXCERPT */}
-          <p className="mb-4 text-gray-600 line-clamp-2 text-sm flex-1">
+          {/* Excerpt - Kurangi line-clamp */}
+          <p className="mb-3 text-sm text-gray-600 line-clamp-2">
             {post.excerpt}
           </p>
 
-          {/* METADATA */}
-          <div className="flex items-center justify-between text-sm text-gray-500 mt-auto">
-            <div className="flex items-center space-x-4">
-              {/* AUTHOR */}
-              <div className="flex items-center">
-                <User className="mr-1 h-3 w-3" />
-                <span className="truncate">{post.author}</span>
-              </div>
-
-              {/* DATE */}
-              <div className="flex items-center">
-                <Calendar className="mr-1 h-3 w-3" />
-                <span>{formatDate(post.date)}</span>
-              </div>
+          {/* Meta Information - Perkecil text */}
+          <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500">
+            <div className="flex items-center">
+              <User className="mr-1 h-3 w-3" />
+              <span>{post.author}</span>
             </div>
-
-            {/* READ TIME */}
+            <div className="flex items-center">
+              <Calendar className="mr-1 h-3 w-3" />
+              <span>{post.date}</span>
+            </div>
             <div className="flex items-center">
               <Clock className="mr-1 h-3 w-3" />
               <span>{post.readTime}</span>
             </div>
           </div>
 
-          {/* READ MORE */}
-          <div className="mt-4 pt-4 border-t border-gray-100">
-            <span className="text-sm font-medium text-primary-blue group-hover:underline">
+          {/* Read More */}
+          <div className="mt-3">
+            <span className="inline-flex items-center text-sm text-primary-blue font-medium group-hover:text-primary-green transition-colors">
               Baca selengkapnya →
             </span>
           </div>
