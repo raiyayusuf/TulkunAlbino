@@ -3,6 +3,7 @@ TULKUNALBINO/
 ├── .vscode/
 │   └── settings.json
 ├── anomali/
+│   ├── content.txt
 │   └── noted.txt
 ├── app/
 │   ├── (auth)/
@@ -15,6 +16,8 @@ TULKUNALBINO/
 │   │   └── page.tsx
 │   ├── (marketing)/
 │   │   ├── about/
+│   │   │   ├── location/
+│   │   │   ├── team/
 │   │   │   └── page.tsx
 │   │   ├── blog/
 │   │   │   ├── [id]/
@@ -36,59 +39,52 @@ TULKUNALBINO/
 │   │   │   │   ├── blog-card.tsx
 │   │   │   │   └── blog-sidebar.tsx
 │   │   │   └── config/
-│   │   │       ├── blog-data.ts
-│   │   │       ├── categories.ts
+│   │   │       ├── layout.tsx
+│   │   │       └── page.tsx
+│   │   ├── contact/
+│   │   │   ├── success/
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── gse-class/
+│   │   │   ├── [id]/
+│   │   │   │   └── page.tsx
+│   │   │   ├── category/
+│   │   │   │   ├── coding-python/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── coding-scratch/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── design-graphics/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── iot/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── robotics-innovation/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── robotics-ukit/
+│   │   │   │       └── page.tsx
+│   │   │   └── config/
+│   │   │       ├── category-card.tsx
+│   │   │       ├── layout.tsx
+│   │   │       └── page.tsx
+│   │   ├── gse-mac/
+│   │   │   ├── components/
+│   │   │   │   ├── benefits-section.tsx
+│   │   │   │   ├── hero-section.tsx
+│   │   │   │   ├── navigation-links.tsx
+│   │   │   │   ├── price-list-cta.tsx
+│   │   │   │   ├── product-grid.tsx
+│   │   │   │   ├── store-banner.tsx
+│   │   │   │   └── store-info.tsx
+│   │   │   └── config/
+│   │   │       ├── benefits.ts
+│   │   │       ├── product.ts
 │   │   │       ├── sidebar-items.ts
 │   │   │       ├── layout.tsx
 │   │   │       └── page.tsx
-│   │   └── contact/
-│   │       ├── success/
-│   │       │   └── page.tsx
-│   │       └── page.tsx
-│   ├── gse-class/
-│   │   ├── [id]/
-│   │   │   └── page.tsx
-│   │   ├── category/
-│   │   │   ├── coding-python/
-│   │   │   │   └── page.tsx
-│   │   │   ├── coding-scratch/
-│   │   │   │   └── page.tsx
-│   │   │   ├── design-graphics/
-│   │   │   │   └── page.tsx
-│   │   │   ├── iot/
-│   │   │   │   └── page.tsx
-│   │   │   └── robot-innovation/
-│   │   │       └── page.tsx
-│   │   └── config/
-│   │       ├── sidebar-items.ts
-│   │       ├── category-card.tsx
-│   │       ├── layout.tsx
-│   │       └── page.tsx
-│   ├── gse-mac/
-│   │   ├── components/
-│   │   │   ├── benefits-section.tsx
-│   │   │   ├── hero-section.tsx
-│   │   │   ├── navigation-links.tsx
-│   │   │   ├── price-list-cta.tsx
-│   │   │   ├── product-grid.tsx
-│   │   │   ├── store-banner.tsx
-│   │   │   └── store-info.tsx
-│   │   └── config/
-│   │       ├── benefits.ts
-│   │       ├── product.ts
-│   │       ├── sidebar-items.ts
-│   │       ├── layout.tsx
-│   │       └── page.tsx
 │   ├── admin/
-│   │   ├── blog/
-│   │   ├── courses/
-│   │   ├── orders/
-│   │   ├── products/
-│   │   ├── settings/
-│   │   └── users/
-│   │       ├── page.tsx
-│   │       ├── layout.tsx
-│   │       └── page.tsx
+│   │   ├── users/
+│   │   │   ├── page.tsx
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx
 │   ├── api/
 │   │   └── auth/
 │   │       └── login/
@@ -100,6 +96,8 @@ TULKUNALBINO/
 │   ├── page.tsx
 │   └── swiper-styles.css
 ├── components/
+│   ├── cards/
+│   ├── forms/
 │   ├── layout/
 │   │   ├── container.tsx
 │   │   ├── footer.tsx
@@ -107,6 +105,8 @@ TULKUNALBINO/
 │   │   ├── mobile-nav.tsx
 │   │   ├── navbar.tsx
 │   │   └── sidebar.tsx
+│   ├── sections/
+│   ├── shared/
 │   └── ui/
 │       ├── avatar.tsx
 │       ├── badge.tsx
@@ -126,6 +126,9 @@ TULKUNALBINO/
 │   ├── use-media-query.ts
 │   ├── use-scroll.ts
 │   └── use-window-size.ts
+├── lib/
+│   ├── middleware/
+│   └── utils/
 ├── node_modules/
 ├── public/
 │   ├── logo/
@@ -137,7 +140,7 @@ TULKUNALBINO/
 │   │   └── logo-g.png
 │   └── school/
 │       ├── cairo-logo.jpg
-│       ├── depok3-logo.jpg
+│       ├── depok3-logo.jpeg
 │       ├── gda2-logo.png
 │       ├── gis-logo.webp
 │       ├── gistrav-logo.png
@@ -152,7 +155,6 @@ TULKUNALBINO/
 │   ├── form.ts
 │   ├── index.ts
 │   └── user.ts
-├── .env
 ├── .gitignore
 ├── eslint.config.mjs
 ├── next-env.d.ts
@@ -163,6 +165,7 @@ TULKUNALBINO/
 ├── README.md
 ├── tailwind.config.ts
 └── tsconfig.json
+
 ============================
 npm install
 npm install lucide-react
