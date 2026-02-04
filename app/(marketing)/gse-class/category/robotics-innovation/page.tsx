@@ -14,7 +14,7 @@ export default function RobotInnovationPage() {
      COURSE DETAILS
      ============================================ */
   const courseDetails = {
-    title: "Robot Innovation",
+    title: "Robotics Innovation",
     description: "Belajar membuat dan memprogram robot inovatif",
     features: [
       "Dasar-dasar mekatronika dan robotika",

@@ -17,14 +17,14 @@ const SCHOOL_LOGOS = [
   },
   {
     src: "/school/depok3-logo.jpeg",
-    alt: "SD Negeri Depok 3",
-    name: "SD Negeri Depok 3",
+    alt: "SMP Negeri Depok 3 Yogyakarta",
+    name: "SMP Negeri Depok 3 Yogyakarta",
     website: "https://smpn3depoksleman.sch.id/",
   },
   {
     src: "/school/gda2-logo.png",
-    alt: "GDA School 2 Yogyakarta",
-    name: "GDA School 2",
+    alt: "GDA School Yogyakarta",
+    name: "GDA School",
     website: "https://admission.gda.sch.id/ro-index/pratar",
   },
   {
@@ -48,13 +48,13 @@ const SCHOOL_LOGOS = [
   {
     src: "/school/kinderstation-logo.png",
     alt: "Kinderstation Preschool",
-    name: "Kinderstation",
+    name: "Kinderstation School",
     website: "https://kinderstationschool.sch.id/",
   },
   {
     src: "/school/pakem4-logo.png",
-    alt: "SD Negeri Pakem 4",
-    name: "SD Pakem 4",
+    alt: "SMP Negeri 4 Pakem Yogyakarta",
+    name: "SMP Negeri 4 Pakem Yogyakarta",
     website: "https://smpn4pakem.sch.id/",
   },
   {

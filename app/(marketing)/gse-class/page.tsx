@@ -1,13 +1,13 @@
 /* ============================================
    app/(marketing)/gse-class/page.tsx
-   GSE CLASS HOMEPAGE - KATALOG KELAS
+   GSE CLASS HOMEPAGE - KATALOG KELAS (UPDATED)
    ============================================ */
 
 import React from "react";
 import CategoryCard from "./category-card";
 
 /* ============================================
-   CATEGORIES DATA
+   CATEGORIES DATA - UPDATED WITH ROBOTICS UKIT
    ============================================ */
 const categories = [
   {
@@ -51,7 +51,7 @@ const categories = [
     level: "Intermediate - Advanced",
   },
   {
-    id: "robot-innovation",
+    id: "robotics-innovation",
     title: "Robot Innovation",
     description:
       "Robotika dan automasi dengan pembelajaran hands-on project yang aplikatif.",
@@ -59,6 +59,17 @@ const categories = [
     color: "from-red-500 to-orange-500",
     duration: "40 Jam",
     level: "Intermediate - Advanced",
+  },
+  // NEW CATEGORY: ROBOTICS UKIT
+  {
+    id: "robotics-ukit",
+    title: "Robotics uKit",
+    description:
+      "Belajar robotika dengan kit uKit yang lengkap untuk berbagai tingkat usia dan kemampuan.",
+    icon: "⚙️",
+    color: "from-indigo-500 to-purple-500",
+    duration: "32 Jam",
+    level: "Beginner - Intermediate",
   },
 ];
 
@@ -108,7 +119,7 @@ export default function GseClassPage() {
         <h2 className="mb-6 text-2xl font-bold text-primary-navy">
           Semua Kategori Kelas
         </h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {categories.map((category) => (
             <CategoryCard key={category.id} category={category} />
           ))}

@@ -1,6 +1,6 @@
 /* ============================================
    app/(marketing)/gse-class/config/sidebar-items.ts
-   CLEAN VERSION
+   CLEAN VERSION - UPDATED WITH ROBOTICS UKIT
    ============================================ */
 
 import { ReactNode, createElement } from "react";
@@ -11,6 +11,7 @@ import {
   Cpu,
   Bot,
   BookOpen,
+  CircuitBoard, // NEW ICON FOR ROBOTICS UKIT
 } from "lucide-react";
 
 /* ============================================
@@ -61,11 +62,19 @@ export const gseClassSidebarConfig = {
       color: "text-green-600",
     },
     {
-      id: "robot-innovation",
-      name: "Robot Innovation",
+      id: "robotics-innovation",
+      name: "Robotics Innovation",
       icon: createSidebarIcon(Bot),
-      href: "/gse-class/category/robot-innovation",
+      href: "/gse-class/category/robotics-innovation",
       color: "text-red-600",
+    },
+    // NEW: ROBOTICS UKIT
+    {
+      id: "robotics-ukit",
+      name: "Robotics uKit",
+      icon: createSidebarIcon(CircuitBoard),
+      href: "/gse-class/category/robotics-ukit",
+      color: "text-indigo-600",
     },
   ],
   logo: {

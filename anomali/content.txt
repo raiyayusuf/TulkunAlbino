@@ -1,0 +1,6 @@
+Category Class:
+Extra | Intra | Private | Coaching
+
+Detail Class:
+Basic | Intermediate | Advance
+
