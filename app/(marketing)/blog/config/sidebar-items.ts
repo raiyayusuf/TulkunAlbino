@@ -1,3 +1,8 @@
+/* ============================================
+   app/(marketing)/blog/config/sidebar-items.ts
+   BLOG SIDEBAR CONFIGURATION
+   ============================================ */
+
 import { ReactNode, createElement } from "react";
 import {
   BookOpen,
@@ -8,6 +13,9 @@ import {
   Bookmark,
 } from "lucide-react";
 
+/* ============================================
+   SIDEBAR CONFIGURATION OBJECT
+   ============================================ */
 export const blogSidebarConfig = {
   items: [
     {

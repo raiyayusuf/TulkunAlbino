@@ -1,4 +1,8 @@
-// app\(marketing)\blog\layout.tsx
+/* ============================================
+   app/(marketing)/blog/layout.tsx
+   BLOG LAYOUT WITH SIDEBAR
+   ============================================ */
+
 import React from "react";
 import Sidebar from "@/components/layout/sidebar";
 import { blogSidebarConfig } from "./config/sidebar-items";

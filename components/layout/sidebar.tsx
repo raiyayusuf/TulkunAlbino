@@ -1,15 +1,15 @@
 /* ============================================
    components/layout/sidebar.tsx
-   MINIMAL SIDEBAR - NO INFO, NO STATS, NO HOME LINK
+   UPDATED SIDEBAR - NO LOGO, AUTO TOGGLE VISIBILITY
    ============================================ */
 
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ChevronRight, ChevronLeft, Menu } from "lucide-react";
+import { useSidebar } from "@/context/sidebar-context";
 
 /* ============================================
    TYPE DEFINITIONS
@@ -39,7 +39,7 @@ export interface SidebarLogo {
 
 export interface SidebarProps {
   items: SidebarItem[];
-  logo: SidebarLogo;
+  logo: SidebarLogo; // Masih dipertahankan untuk prop, tapi tidak digunakan
   title?: string;
   subtitle?: string;
 }
@@ -54,7 +54,7 @@ export default function Sidebar({
   subtitle,
 }: SidebarProps) {
   const pathname = usePathname();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const { isCollapsed, toggleSidebar } = useSidebar();
 
   /* ============================================
      HELPER FUNCTIONS
@@ -63,9 +63,10 @@ export default function Sidebar({
     return pathname === itemHref || pathname.startsWith(itemHref + "/");
   };
 
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
-  };
+  // Check if we should show sidebar toggle
+  const isSidebarPage = pathname.startsWith('/gse-class') || 
+                       pathname.startsWith('/gse-mac') || 
+                       pathname.startsWith('/blog');
 
   /* ============================================
      RENDER COMPONENT
@@ -80,80 +81,56 @@ export default function Sidebar({
       <div className="flex h-full flex-col">
         {/* MAIN CONTENT AREA */}
         <div className="flex-1 overflow-y-auto p-4">
-          {/* LOGO & TOGGLE SECTION */}
+          {/* HEADER SECTION (TITLE & TOGGLE) */}
           <div className={`mb-8 ${isCollapsed ? "" : "space-y-2"}`}>
             {/* COLLAPSED STATE */}
             {isCollapsed ? (
               <div className="space-y-6">
-                {/* COMPACT LOGO */}
-                <div className="flex justify-center">
-                  <div
-                    className={`relative ${logo.collapsed.height} ${logo.collapsed.width}`}
-                  >
-                    <Image
-                      src={logo.collapsed.src}
-                      alt={logo.collapsed.alt}
-                      fill
-                      className="object-contain"
-                      sizes="60px"
-                      priority
-                    />
+                {/* TOGGLE BUTTON ONLY (visible on sidebar pages) */}
+                {isSidebarPage && (
+                  <div className="flex justify-center">
+                    <button
+                      onClick={toggleSidebar}
+                      className="rounded-lg p-2 text-gray-500 hover:bg-gray-100"
+                      aria-label="Expand sidebar"
+                      title="Expand sidebar"
+                    >
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
                   </div>
-                </div>
-
-                {/* EXPAND TOGGLE BUTTON */}
-                <div className="flex justify-center">
-                  <button
-                    onClick={toggleSidebar}
-                    className="rounded-lg p-2 text-gray-500 hover:bg-gray-100"
-                    aria-label="Expand sidebar"
-                    title="Expand sidebar"
-                  >
-                    <ChevronRight className="h-4 w-4" />
-                  </button>
-                </div>
+                )}
               </div>
             ) : (
               /* EXPANDED STATE */
               <div>
-                {/* LOGO AND TOGGLE ROW */}
+                {/* HEADER WITH TITLE AND TOGGLE */}
                 <div className="flex items-center justify-between">
-                  {/* FULL LOGO */}
-                  <div
-                    className={`relative ${logo.expanded.height} ${logo.expanded.width}`}
-                  >
-                    <Image
-                      src={logo.expanded.src}
-                      alt={logo.expanded.alt}
-                      fill
-                      className="object-contain"
-                      sizes="128px"
-                      priority
-                    />
-                  </div>
-
-                  {/* COLLAPSE TOGGLE BUTTON */}
-                  <button
-                    onClick={toggleSidebar}
-                    className="rounded-lg p-2 text-gray-500 hover:bg-gray-100"
-                    aria-label="Collapse sidebar"
-                    title="Collapse sidebar"
-                  >
-                    <ChevronLeft className="h-4 w-4" />
-                  </button>
-                </div>
-
-                {/* TITLE & SUBTITLE */}
-                {title && (
-                  <div className="mt-2">
-                    <h2 className="text-lg font-bold text-primary-navy">
-                      {title}
-                    </h2>
-                    {subtitle && (
-                      <p className="text-sm text-gray-600">{subtitle}</p>
+                  {/* TITLE AREA */}
+                  <div className="flex-1">
+                    {title && (
+                      <div>
+                        <h2 className="text-lg font-bold text-primary-navy">
+                          {title}
+                        </h2>
+                        {subtitle && (
+                          <p className="text-sm text-gray-600">{subtitle}</p>
+                        )}
+                      </div>
                     )}
                   </div>
-                )}
+
+                  {/* COLLAPSE TOGGLE BUTTON (visible on sidebar pages) */}
+                  {isSidebarPage && (
+                    <button
+                      onClick={toggleSidebar}
+                      className="ml-4 rounded-lg p-2 text-gray-500 hover:bg-gray-100"
+                      aria-label="Collapse sidebar"
+                      title="Collapse sidebar"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                    </button>
+                  )}
+                </div>
               </div>
             )}
           </div>

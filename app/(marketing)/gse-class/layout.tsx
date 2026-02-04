@@ -1,6 +1,6 @@
 /* ============================================
    app/(marketing)/gse-class/layout.tsx
-   GSE CLASS LAYOUT COMPONENT
+   GSE CLASS LAYOUT WITH SIDEBAR
    ============================================ */
 
 import React from "react";

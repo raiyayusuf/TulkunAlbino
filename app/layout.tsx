@@ -1,6 +1,6 @@
 /* ============================================
    app/layout.tsx
-   ROOT LAYOUT COMPONENT
+   ROOT LAYOUT WITH SIDEBAR PROVIDER
    ============================================ */
 
 import type { Metadata } from "next";
@@ -11,6 +11,7 @@ import "./swiper-styles.css"; // Jangan lupa import swiper CSS
 // Layout Components
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
+import { SidebarProvider } from "@/context/sidebar-context";
 
 /* ============================================
    FONT CONFIGURATION
@@ -61,29 +62,34 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         {/* ============================================
-            LAYOUT STRUCTURE
+            SIDEBAR PROVIDER (GLOBAL STATE)
             ============================================ */}
-        <div className="min-h-screen flex flex-col">
+        <SidebarProvider>
           {/* ============================================
-              HEADER/NAVIGATION
+              LAYOUT STRUCTURE
               ============================================ */}
-          <Navbar />
+          <div className="min-h-screen flex flex-col">
+            {/* ============================================
+                HEADER/NAVIGATION
+                ============================================ */}
+            <Navbar />
 
-          {/* ============================================
-              SPACER UNTUK NAVBAR FIXED (INI YANG PENTING!)
-              ============================================ */}
-          <div className="h-16"></div>
+            {/* ============================================
+                SPACER UNTUK NAVBAR FIXED
+                ============================================ */}
+            <div className="h-16"></div>
 
-          {/* ============================================
-              MAIN CONTENT AREA
-              ============================================ */}
-          <main className="flex-1">{children}</main>
+            {/* ============================================
+                MAIN CONTENT AREA
+                ============================================ */}
+            <main className="flex-1">{children}</main>
 
-          {/* ============================================
-              FOOTER
-              ============================================ */}
-          <Footer />
-        </div>
+            {/* ============================================
+                FOOTER
+                ============================================ */}
+            <Footer />
+          </div>
+        </SidebarProvider>
       </body>
     </html>
   );
