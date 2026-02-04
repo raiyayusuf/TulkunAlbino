@@ -163,6 +163,7 @@ TULKUNALBINO/
 ├── README.md
 ├── tailwind.config.ts
 └── tsconfig.json
+
 ============================
 npm install
 npm install lucide-react

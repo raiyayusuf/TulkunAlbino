@@ -1,0 +1,6 @@
+4 feb ----------------
+plan:
+1. nambahin team di about -> card per staff & mentor
+done:
+1. nambah robotics ukit
+2. benerin sidebar

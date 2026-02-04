@@ -1,6 +1,6 @@
 /* ============================================
    app/(marketing)/gse-mac/layout.tsx
-   GSE MAC LAYOUT COMPONENT
+   GSE MAC LAYOUT WITH SIDEBAR
    ============================================ */
 
 import React from "react";
