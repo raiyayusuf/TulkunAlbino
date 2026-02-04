@@ -1,6 +1,6 @@
 /* ============================================
    components/layout/navbar.tsx
-   UPDATED - LOGO VERTICALLY ALIGNED WITH SIDEBAR
+   FIXED - NON-SIDEBAR PAGES FOLLOW SIDEBAR-EXPANDED LAYOUT
    ============================================ */
 
 "use client";
@@ -81,32 +81,33 @@ export default function Navbar() {
                        pathname.startsWith('/gse-mac') || 
                        pathname.startsWith('/blog');
 
-  // Determine which logo to use based on sidebar state AND page
-  const currentLogo = (isSidebarPage && isCollapsed) 
-    ? LOGO_CONFIG.simple 
-    : LOGO_CONFIG.full;
-
-  // Calculate logo position - CENTER OF SIDEBAR WIDTH
-  const getLogoPosition = () => {
-    if (!isSidebarPage) return "ml-0";
-    
-    if (isCollapsed) {
-      // Sidebar collapsed (20px = 5rem)
-      // Logo simple (G) harus di tengah dari 5rem
-      // w-8 (32px) di tengah w-20 (80px) = (80-32)/2 = 24px = ml-6
-      return "ml-1"; // 1.5rem = 24px
+  /* ============================================
+     LOGO CONFIGURATION BASED ON PAGE TYPE
+     ============================================ */
+  const getLogoConfig = () => {
+    if (!isSidebarPage) {
+      // NON-SIDEBAR PAGES: Always use FULL logo (like sidebar expanded)
+      return {
+        logo: LOGO_CONFIG.full,
+        widthClass: SIDEBAR_WIDTHS.expanded, // w-64
+        marginClass: "ml-9" // Same as sidebar expanded
+      };
     } else {
-      // Sidebar expanded (64px = 16rem)
-      // Logo full harus di tengah dari 16rem
-      // w-32 (128px) di tengah w-64 (256px) = (256-128)/2 = 64px = ml-16
-      return "ml-9"; // 4rem = 64px
+      // SIDEBAR PAGES: Follow sidebar state
+      return {
+        logo: isCollapsed ? LOGO_CONFIG.simple : LOGO_CONFIG.full,
+        widthClass: isCollapsed ? SIDEBAR_WIDTHS.collapsed : SIDEBAR_WIDTHS.expanded,
+        marginClass: isCollapsed ? "ml-1" : "ml-9"
+      };
     }
   };
 
-  // Get sidebar width class for transition
-  const sidebarWidthClass = isSidebarPage 
-    ? (isCollapsed ? SIDEBAR_WIDTHS.collapsed : SIDEBAR_WIDTHS.expanded)
-    : "";
+  const { logo, widthClass, marginClass } = getLogoConfig();
+
+  /* ============================================
+     MENU SPACING - SAME FOR ALL PAGES NOW
+     ============================================ */
+  const menuSpacing = "pl-4"; // Consistent spacing
 
   /* ============================================
      HELPER FUNCTIONS
@@ -131,24 +132,22 @@ export default function Navbar() {
         <div className="flex h-16 items-center px-4 lg:px-6">
           
           {/* ============================================
-              LEFT SECTION - LOGO (VERTICALLY ALIGNED WITH SIDEBAR)
+              LEFT SECTION - LOGO (CONSISTENT LAYOUT)
               ============================================ */}
           <div 
-            className={`flex-shrink-0 transition-all duration-300 ${
-              isSidebarPage ? sidebarWidthClass : ""
-            }`}
+            className={`flex-shrink-0 transition-all duration-300 ${widthClass}`}
           >
-            <div className={`${getLogoPosition()} transition-all duration-300`}>
+            <div className={`${marginClass} transition-all duration-300`}>
               <Link href="/" className="flex items-center">
                 <div
-                  className={`relative ${currentLogo.height} ${currentLogo.width}`}
+                  className={`relative ${logo.height} ${logo.width}`}
                 >
                   <Image
-                    src={currentLogo.src}
-                    alt={currentLogo.alt}
+                    src={logo.src}
+                    alt={logo.alt}
                     fill
                     className="object-contain"
-                    sizes={currentLogo.sizes}
+                    sizes={logo.sizes}
                     priority
                   />
                 </div>
@@ -157,9 +156,9 @@ export default function Navbar() {
           </div>
 
           {/* ============================================
-              CENTER SECTION - NAV MENU
+              CENTER SECTION - NAV MENU (CONSISTENT SPACING)
               ============================================ */}
-          <div className="hidden md:flex flex-1 items-center justify-start space-x-6 pl-4">
+          <div className={`hidden md:flex flex-1 items-center justify-start space-x-6 ${menuSpacing}`}>
             {NAV_ITEMS.map((item) => (
               <div key={item.name} className="relative group">
                 <div className="relative">
