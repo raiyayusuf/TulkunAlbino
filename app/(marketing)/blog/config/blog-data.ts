@@ -1,3 +1,11 @@
+/* ============================================
+   app/(marketing)/blog/config/blog-data.ts
+   BLOG POSTS DATA CONFIGURATION - GSE JOGJA
+   ============================================ */
+
+/* ============================================
+   INTERFACES
+   ============================================ */
 export interface BlogPost {
   id: string;
   title: string;
@@ -10,9 +18,12 @@ export interface BlogPost {
   image?: string;
 }
 
-// DATA: Total 35 artikel (kegiatan 5, tutorial 8, prestasi 5, event 6, edukasi 6, story 5)
-export const BLOG_POSTS: BlogPost[] = [
-  // ==================== KEGIATAN (5) ====================
+/* ============================================
+   BLOG POSTS DATA
+   ============================================ */
+
+// ==================== KEGIATAN (5) ====================
+const KEGIATAN_POSTS: BlogPost[] = [
   {
     id: "workshop-iot-2024",
     title: "Workshop IoT 2024: Belajar Internet of Things dari Nol",
@@ -77,8 +88,10 @@ export const BLOG_POSTS: BlogPost[] = [
     image:
       "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
   },
+];
 
-  // ==================== TUTORIAL (8) ====================
+// ==================== TUTORIAL (8) ====================
+const TUTORIAL_POSTS: BlogPost[] = [
   {
     id: "belajar-coding-pemula",
     title: "Tips Belajar Coding untuk Pemula yang Efektif",
@@ -181,8 +194,10 @@ export const BLOG_POSTS: BlogPost[] = [
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
   },
+];
 
-  // ==================== PRESTASI (5) ====================
+// ==================== PRESTASI (5) ====================
+const PRESTASI_POSTS: BlogPost[] = [
   {
     id: "juara-robotika-nasional",
     title:
@@ -249,8 +264,10 @@ export const BLOG_POSTS: BlogPost[] = [
     image:
       "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop",
   },
+];
 
-  // ==================== EVENT (6) ====================
+// ==================== EVENT (6) ====================
+const EVENT_POSTS: BlogPost[] = [
   {
     id: "event-apple-day",
     title: "Event Apple Day: Eksplorasi Teknologi Terbaru Apple",
@@ -329,8 +346,10 @@ export const BLOG_POSTS: BlogPost[] = [
     image:
       "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=400&fit=crop",
   },
+];
 
-  // ==================== EDUKASI (6) ====================
+// ==================== EDUKASI (6) ====================
+const EDUKASI_POSTS: BlogPost[] = [
   {
     id: "kegiatan-positif-anak",
     title: "Kegiatan Positif Anak Sepulang Sekolah",
@@ -407,8 +426,10 @@ export const BLOG_POSTS: BlogPost[] = [
     image:
       "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=400&fit=crop",
   },
+];
 
-  // ==================== STORY (5) ====================
+// ==================== STORY (5) ====================
+const STORY_POSTS: BlogPost[] = [
   {
     id: "story-perjalanan-gse",
     title: "Perjalanan GSE Jogja: Dari Garage Startup ke Pusat Teknologi",
@@ -476,12 +497,33 @@ export const BLOG_POSTS: BlogPost[] = [
   },
 ];
 
-// Helper functions
-export const getPostsByCategory = (category: string) => {
+/* ============================================
+   COMBINED ALL BLOG POSTS
+   ============================================ */
+export const BLOG_POSTS: BlogPost[] = [
+  ...KEGIATAN_POSTS,
+  ...TUTORIAL_POSTS,
+  ...PRESTASI_POSTS,
+  ...EVENT_POSTS,
+  ...EDUKASI_POSTS,
+  ...STORY_POSTS,
+];
+
+/* ============================================
+   HELPER FUNCTIONS
+   ============================================ */
+
+/**
+ * Get posts by category
+ */
+export const getPostsByCategory = (category: string): BlogPost[] => {
   if (category === "all") return BLOG_POSTS;
   return BLOG_POSTS.filter((post) => post.category === category);
 };
 
+/**
+ * Get categories with post counts
+ */
 export const getCategoriesWithCount = () => {
   const categories = [
     { id: "kegiatan", name: "Kegiatan", count: 0 },
@@ -497,4 +539,20 @@ export const getCategoriesWithCount = () => {
   });
 
   return categories;
+};
+
+/**
+ * Get total post count
+ */
+export const getTotalPostCount = (): number => {
+  return BLOG_POSTS.length;
+};
+
+/**
+ * Get recent posts (limit by count)
+ */
+export const getRecentPosts = (limit: number = 5): BlogPost[] => {
+  return [...BLOG_POSTS]
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, limit);
 };

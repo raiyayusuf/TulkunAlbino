@@ -1,3 +1,11 @@
+/* ============================================
+   app/(marketing)/blog/config/categories.ts
+   BLOG CATEGORIES CONFIGURATION - GSE JOGJA
+   ============================================ */
+
+/* ============================================
+   CATEGORY INTERFACE
+   ============================================ */
 export interface BlogCategory {
   id: string;
   name: string;
@@ -5,6 +13,9 @@ export interface BlogCategory {
   bgColor: string;
 }
 
+/* ============================================
+   CATEGORIES DATA
+   ============================================ */
 export const CATEGORIES: BlogCategory[] = [
   {
     id: "kegiatan",
@@ -44,6 +55,20 @@ export const CATEGORIES: BlogCategory[] = [
   },
 ];
 
-export const getCategoryById = (id: string) => {
+/* ============================================
+   HELPER FUNCTIONS
+   ============================================ */
+
+/**
+ * Get category by ID
+ */
+export const getCategoryById = (id: string): BlogCategory | undefined => {
   return CATEGORIES.find((cat) => cat.id === id);
+};
+
+/**
+ * Get all category IDs
+ */
+export const getAllCategoryIds = (): string[] => {
+  return CATEGORIES.map((cat) => cat.id);
 };

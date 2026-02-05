@@ -6,3 +6,11 @@ done:
 1. nambah robotics ukit
 2. benerin sidebar 
 3. benerin navbar (responsive logo dan menu sama sidebar)
+
+5 feb ----------------
+plan:
+
+done:
+1. hilangin sub navbar gse class
+2. benerin comment per file
+

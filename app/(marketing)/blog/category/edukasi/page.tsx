@@ -1,18 +1,33 @@
-// app\(marketing)\blog\category\edukasi\page.tsx
+/* ============================================
+   app/(marketing)/blog/category/edukasi/page.tsx
+   EDUKASI CATEGORY PAGE - GSE JOGJA
+   ============================================ */
+
 import React from "react";
 import BlogCard from "../../components/blog-card";
 import { getPostsByCategory } from "../../config/blog-data";
 import { getCategoryById } from "../../config/categories";
 
+/* ============================================
+   EDUKASI CATEGORY PAGE COMPONENT
+   ============================================ */
 export default function EdukasiCategoryPage() {
+  /* ============================================
+     DATA FETCHING
+     ============================================ */
   const category = getCategoryById("edukasi");
   const posts = getPostsByCategory("edukasi");
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
+      {/* ============================================
+          PAGE HEADER SECTION
+          ============================================ */}
       <div className="border-b border-gray-200 px-4 py-8 md:py-12">
         <div className="container mx-auto">
+          {/* ============================================
+              CATEGORY BADGE
+              ============================================ */}
           {category && (
             <span
               className={`mb-4 inline-block rounded-full px-4 py-2 text-sm font-semibold ${category.bgColor} ${category.color}`}
@@ -20,28 +35,46 @@ export default function EdukasiCategoryPage() {
               {category.name}
             </span>
           )}
+
+          {/* ============================================
+              PAGE TITLE
+              ============================================ */}
           <h1 className="text-2xl font-bold text-primary-navy md:text-3xl">
             Kategori: Edukasi
           </h1>
+
+          {/* ============================================
+              PAGE DESCRIPTION
+              ============================================ */}
           <p className="mt-2 text-gray-600">
             Artikel tentang edukasi teknologi, parenting, dan pengembangan diri
           </p>
+
+          {/* ============================================
+              POST COUNT
+              ============================================ */}
           <div className="mt-4 text-sm text-gray-500">
             {posts.length} artikel tersedia
           </div>
         </div>
       </div>
 
-      {/* Articles Section */}
+      {/* ============================================
+          MAIN CONTENT SECTION
+          ============================================ */}
       <div className="container mx-auto px-4 py-8">
-        {/* Articles Grid */}
+        {/* ============================================
+            BLOG POSTS GRID
+            ============================================ */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
           {posts.map((post) => (
             <BlogCard key={post.id} post={post} />
           ))}
         </div>
 
-        {/* Back to Blog */}
+        {/* ============================================
+            BACK TO BLOG LINK
+            ============================================ */}
         <div className="mt-12 text-center">
           <a
             href="/blog"
