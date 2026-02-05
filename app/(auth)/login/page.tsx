@@ -27,7 +27,8 @@ const LOGO_CONFIG = {
    ============================================ */
 const ADMIN_CREDENTIALS = {
   email: "admin@gsejogja.com",
-  password: "AdminGSE2024!", // INI HANYA DEMO - nanti pakai database
+  // password: "AdminGSE2024!", // INI HANYA DEMO - nanti pakai database
+  password: "AdminGSE2026$",
 };
 
 /* ============================================
