@@ -16,9 +16,9 @@ export default function HomePage() {
       href: "/gse-class",
       icon: "👨‍💻",
       features: [
-        "Coding Python",
+        "Python",
         "Scratch",
-        "Robotik",
+        "Robotics",
         "IoT",
         "Design Graphics",
       ],

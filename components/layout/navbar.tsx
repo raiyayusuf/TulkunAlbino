@@ -1,6 +1,5 @@
 /* ============================================
    components/layout/navbar.tsx
-   FIXED - NON-SIDEBAR PAGES FOLLOW SIDEBAR-EXPANDED LAYOUT
    ============================================ */
 
 "use client";
@@ -19,17 +18,7 @@ import { useSidebar } from "@/context/sidebar-context";
    ============================================ */
 const NAV_ITEMS = [
   { name: "Home", href: "/" },
-  {
-    name: "GSE Class",
-    href: "/gse-class",
-    submenu: [
-      { name: "IoT", href: "/gse-class/iot" },
-      { name: "Coding Python", href: "/gse-class/coding-python" },
-      { name: "Coding Scratch", href: "/gse-class/coding-scratch" },
-      { name: "Robot Innovation", href: "/gse-class/robot-innovation" },
-      { name: "Design Graphics", href: "/gse-class/design-graphics" },
-    ],
-  },
+  { name: "GSE Class", href: "/gse-class"},
   { name: "GSE Mac", href: "/gse-mac" },
   { name: "Blog", href: "/blog" },
   { name: "About", href: "/about" },
@@ -183,27 +172,6 @@ export default function Navbar() {
                     )}
                   </Link>
                 </div>
-
-                {/* Dropdown for GSE Class */}
-                {item.submenu && (
-                  <div className="absolute left-0 top-full mt-2 hidden group-hover:block z-50">
-                    <div className="rounded-lg bg-white shadow-lg border border-gray-200 p-2 min-w-[200px]">
-                      {item.submenu.map((subItem) => (
-                        <Link
-                          key={subItem.name}
-                          href={subItem.href}
-                          className={`block px-4 py-2 text-sm rounded transition-colors ${
-                            pathname === subItem.href
-                              ? "bg-primary-blue/10 text-primary-blue"
-                              : "text-gray-700 hover:bg-blue-50 hover:text-primary-blue"
-                          }`}
-                        >
-                          {subItem.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             ))}
           </div>

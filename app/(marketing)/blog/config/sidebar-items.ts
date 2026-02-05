@@ -82,6 +82,6 @@ export const blogSidebarConfig = {
       width: "w-10",
     },
   },
-  title: "Blog GSE Jogja",
-  subtitle: "Update kegiatan & tips teknologi",
+  title: "GSE Blog",
+  subtitle: "Kegiatan dan Teknologi",
 };

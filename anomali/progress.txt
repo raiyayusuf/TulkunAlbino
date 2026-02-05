@@ -1,6 +1,8 @@
 4 feb ----------------
 plan:
 1. nambahin team di about -> card per staff & mentor
+2. ganti intro di setiap awal page kecuali home
 done:
 1. nambah robotics ukit
-2. benerin sidebar
+2. benerin sidebar 
+3. benerin navbar (responsive logo dan menu sama sidebar)
