@@ -1,6 +1,7 @@
 /* ============================================
    app/layout.tsx
-   ROOT LAYOUT WITH SIDEBAR PROVIDER
+   ROOT LAYOUT - PROVIDER ONLY
+   NO NAVBAR & FOOTER HERE
    ============================================ */
 
 import type { Metadata } from "next";
@@ -8,9 +9,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "./swiper-styles.css"; // Jangan lupa import swiper CSS
 
-// Layout Components
-import Navbar from "@/components/layout/navbar";
-import Footer from "@/components/layout/footer";
+// Context Provider
 import { SidebarProvider } from "@/context/sidebar-context";
 
 /* ============================================
@@ -55,6 +54,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  /* ============================================
+     RENDER COMPONENT
+     ============================================ */
   return (
     <html lang="id" className="scroll-smooth">
       <body
@@ -66,29 +68,9 @@ export default function RootLayout({
             ============================================ */}
         <SidebarProvider>
           {/* ============================================
-              LAYOUT STRUCTURE
+              MAIN CONTENT WRAPPER
               ============================================ */}
-          <div className="min-h-screen flex flex-col">
-            {/* ============================================
-                HEADER/NAVIGATION
-                ============================================ */}
-            <Navbar />
-
-            {/* ============================================
-                SPACER UNTUK NAVBAR FIXED
-                ============================================ */}
-            <div className="h-16"></div>
-
-            {/* ============================================
-                MAIN CONTENT AREA
-                ============================================ */}
-            <main className="flex-1">{children}</main>
-
-            {/* ============================================
-                FOOTER
-                ============================================ */}
-            <Footer />
-          </div>
+          <div className="min-h-screen">{children}</div>
         </SidebarProvider>
       </body>
     </html>

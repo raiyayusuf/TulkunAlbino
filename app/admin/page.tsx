@@ -1,6 +1,6 @@
 /* ============================================
    app/admin/page.tsx
-   ADMIN LOGIN PAGE - AKSES VIA /admin
+   ADMIN LOGIN PAGE - SESSION-BASED AUTH
    LOGIN PAGE TANPA SIDEBAR - CLEAN DESIGN
    ============================================ */
 
@@ -40,7 +40,17 @@ const ADMIN_CREDENTIALS = {
 };
 
 /* ============================================
-   ADMIN LOGIN PAGE COMPONENT - TANPA SIDEBAR
+   SESSION CONFIGURATION
+   ============================================ */
+const SESSION_CONFIG = {
+  cookieName: "admin-token",
+  sessionStorageKey: "admin-session",
+  activityKey: "admin-last-activity",
+  inactivityTimeout: 30 * 60 * 1000, // 30 menit dalam milliseconds
+};
+
+/* ============================================
+   ADMIN LOGIN PAGE COMPONENT - SESSION BASED
    ============================================ */
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -54,22 +64,26 @@ export default function AdminLoginPage() {
   const [isClient, setIsClient] = useState(false);
 
   /* ============================================
-     CHECK IF ALREADY LOGGED IN
+     CHECK IF ALREADY HAS SESSION
      ============================================ */
   useEffect(() => {
     setIsClient(true);
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("admin-token="));
 
-    // Jika sudah login, redirect ke dashboard
-    if (token) {
-      router.push("/admin/dashboard");
+    // Check sessionStorage (client-side session)
+    if (typeof window !== "undefined") {
+      const hasSession = sessionStorage.getItem(
+        SESSION_CONFIG.sessionStorageKey,
+      );
+
+      // Jika sudah punya session, redirect ke dashboard
+      if (hasSession) {
+        router.push("/admin/dashboard");
+      }
     }
   }, [router]);
 
   /* ============================================
-     HANDLE FORM SUBMIT
+     HANDLE FORM SUBMIT - SESSION BASED
      ============================================ */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,13 +103,26 @@ export default function AdminLoginPage() {
         formData.email === ADMIN_CREDENTIALS.email &&
         formData.password === ADMIN_CREDENTIALS.password
       ) {
-        // Set secure cookie dengan expiration (8 jam)
-        const expirationDate = new Date();
-        expirationDate.setTime(expirationDate.getTime() + 8 * 60 * 60 * 1000);
+        // ============================================
+        // SESSION SETUP - BOTH CLIENT & SERVER
+        // ============================================
 
-        document.cookie = `admin-token=authenticated; path=/; expires=${expirationDate.toUTCString()}; SameSite=Strict`;
+        // 1. SESSION COOKIE (NO EXPIRY = BROWSER SESSION)
+        // Cookie akan hilang saat browser/tab ditutup
+        document.cookie = `${SESSION_CONFIG.cookieName}=authenticated; path=/admin; SameSite=Strict`;
 
-        // Redirect ke dashboard
+        // 2. CLIENT-SIDE SESSION STORAGE
+        // Untuk client-side validation dan activity tracking
+        if (typeof window !== "undefined") {
+          const sessionId = `admin-session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+          sessionStorage.setItem(SESSION_CONFIG.sessionStorageKey, sessionId);
+          sessionStorage.setItem(
+            SESSION_CONFIG.activityKey,
+            Date.now().toString(),
+          );
+        }
+
+        // 3. REDIRECT KE DASHBOARD
         router.push("/admin/dashboard");
         router.refresh(); // Refresh untuk update middleware
       } else {
@@ -136,7 +163,6 @@ export default function AdminLoginPage() {
               </div>
               <span className="font-bold text-primary-navy">GSE Admin</span>
             </Link>
-            <div className="text-sm text-gray-500">Login via /admin</div>
           </div>
         </div>
       </header>
@@ -257,21 +283,23 @@ export default function AdminLoginPage() {
                 </div>
               </div>
 
-              {/* REMEMBER ME */}
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="remember"
-                  className="h-4 w-4 rounded border-gray-300 text-primary-blue focus:ring-primary-blue"
-                  disabled={isLoading}
-                />
-                <label
-                  htmlFor="remember"
-                  className="ml-2 text-sm text-gray-700"
-                >
-                  Ingat saya (8 jam)
-                </label>
-              </div>
+              {/* SESSION NOTE (REPLACE REMEMBER ME)
+              <div className="rounded-lg bg-blue-50 p-4 border border-blue-100">
+                <div className="flex items-start">
+                  <AlertCircle className="h-5 w-5 text-blue-500 mt-0.5 mr-2 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm text-blue-700 font-medium mb-1">
+                      Session Browser
+                    </p>
+                    <p className="text-xs text-blue-600">
+                      • Login hanya berlaku untuk tab/window ini
+                      <br />
+                      • Tutup browser/tab → Session hilang
+                      <br />• Inactive 30 menit → Auto logout
+                    </p>
+                  </div>
+                </div>
+              </div> */}
 
               {/* SUBMIT BUTTON */}
               <button
@@ -297,9 +325,7 @@ export default function AdminLoginPage() {
               <div className="flex items-start">
                 <AlertCircle className="h-5 w-5 text-blue-500 mt-0.5 mr-2 flex-shrink-0" />
                 <p className="text-sm text-blue-700">
-                  <strong>Keamanan Admin:</strong> Akses hanya untuk staf GSE
-                  Jogja. Login via{" "}
-                  <code className="bg-blue-100 px-1 rounded">/admin</code> saja.
+                  <strong>Keamanan:</strong> Akses hanya untuk staf GSE Jogja.
                 </p>
               </div>
             </div>
@@ -336,8 +362,7 @@ export default function AdminLoginPage() {
               VERSION INFO
               ============================================ */}
           <div className="mt-8 text-center text-xs text-gray-400">
-            <p>GSE Jogja Admin Panel v1.0 • © {new Date().getFullYear()}</p>
-            <p className="mt-1">Akses hanya via /admin</p>
+            <p>GSE Jogja Admin• © {new Date().getFullYear()}</p>
           </div>
         </div>
       </main>

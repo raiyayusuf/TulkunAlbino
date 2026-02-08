@@ -226,25 +226,6 @@ export default function AdminDashboardPage() {
             </Link>
           </div>
         </div>
-
-        {/* SECURITY REMINDER */}
-        <div className="rounded-xl border border-yellow-200 bg-yellow-50 p-6">
-          <div className="flex items-start">
-            <AlertCircle className="h-6 w-6 text-yellow-600 mr-3 mt-0.5 flex-shrink-0" />
-            <div>
-              <h3 className="mb-2 font-bold text-yellow-800">Keamanan Admin</h3>
-              <ul className="space-y-1 text-sm text-yellow-700">
-                <li>
-                  • Login hanya via{" "}
-                  <code className="bg-yellow-100 px-1 rounded">/admin</code>
-                </li>
-                <li>• Cookie akan expire setelah 8 jam</li>
-                <li>• Jangan bagikan credential login</li>
-                <li>• Selalu logout setelah selesai</li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* ============================================

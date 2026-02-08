@@ -1,12 +1,12 @@
 /* ============================================
    app/admin/layout.tsx
-   ADMIN PANEL LAYOUT WITH AUTH
+   ADMIN PANEL LAYOUT WITH SESSION-BASED AUTH
    CLEAN DESIGN - NO SIDEBAR, TOP NAVIGATION ONLY
    ============================================ */
 
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import {
@@ -19,6 +19,7 @@ import {
   X,
   Shield,
   Home,
+  AlertCircle,
 } from "lucide-react";
 
 /* ============================================
@@ -53,12 +54,22 @@ const ADMIN_NAV_ITEMS = [
 ];
 
 /* ============================================
+   SESSION CONFIGURATION
+   ============================================ */
+const SESSION_CONFIG = {
+  sessionStorageKey: "admin-session",
+  activityKey: "admin-last-activity",
+  inactivityTimeout: 30 * 60 * 1000, // 30 menit
+  cookieName: "admin-token",
+};
+
+/* ============================================
    TAGLINE FOR ADMIN PANEL
    ============================================ */
 const ADMIN_TAGLINE = "Solutif, Edukatif, dan Progresif";
 
 /* ============================================
-   ADMIN LAYOUT COMPONENT
+   ADMIN LAYOUT COMPONENT - WITH SESSION VALIDATION
    ============================================ */
 export default function AdminLayout({
   children,
@@ -69,6 +80,7 @@ export default function AdminLayout({
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [sessionValid, setSessionValid] = useState<boolean | null>(null);
 
   /* ============================================
      CHECK IF CURRENT PATH IS LOGIN PAGE
@@ -76,18 +88,115 @@ export default function AdminLayout({
   const isLoginPage = pathname === "/admin";
 
   /* ============================================
-     HANDLE LOGOUT
+     CLIENT-SIDE SESSION VALIDATION
+     ============================================ */
+  useEffect(() => {
+    // Hanya jalan di client side
+    if (typeof window === "undefined") return;
+
+    const validateSession = () => {
+      const hasSession = sessionStorage.getItem(
+        SESSION_CONFIG.sessionStorageKey,
+      );
+      const lastActivity = sessionStorage.getItem(SESSION_CONFIG.activityKey);
+
+      // SCENARIO 1: Tidak ada session sama sekali
+      if (!hasSession) {
+        setSessionValid(false);
+
+        // Jika bukan di login page, redirect ke login
+        if (!isLoginPage) {
+          // Hapus cookie untuk konsistensi
+          document.cookie = `${SESSION_CONFIG.cookieName}=; path=/admin; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+          router.push("/admin");
+        }
+        return;
+      }
+
+      // SCENARIO 2: Check inactivity timeout
+      if (lastActivity) {
+        const inactiveTime = Date.now() - parseInt(lastActivity);
+        if (inactiveTime > SESSION_CONFIG.inactivityTimeout) {
+          // Session expired karena inactive
+          handleAutoLogout();
+          return;
+        }
+      }
+
+      // SCENARIO 3: Session valid
+      setSessionValid(true);
+
+      // Jika session valid DAN di login page, redirect ke dashboard
+      if (isLoginPage) {
+        router.push("/admin/dashboard");
+      }
+    };
+
+    validateSession();
+
+    // Update activity timestamp on user interaction
+    const updateActivity = () => {
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem(
+          SESSION_CONFIG.activityKey,
+          Date.now().toString(),
+        );
+      }
+    };
+
+    // Add event listeners for activity tracking
+    const events = ["mousemove", "keypress", "click", "scroll"];
+    events.forEach((event) => {
+      window.addEventListener(event, updateActivity);
+    });
+
+    // Check session periodically (every minute)
+    const sessionCheckInterval = setInterval(validateSession, 60000);
+
+    return () => {
+      events.forEach((event) => {
+        window.removeEventListener(event, updateActivity);
+      });
+      clearInterval(sessionCheckInterval);
+    };
+  }, [pathname, router, isLoginPage]);
+
+  /* ============================================
+     HANDLE AUTO LOGOUT (INACTIVITY)
+     ============================================ */
+  const handleAutoLogout = () => {
+    // Hapus semua session data
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem(SESSION_CONFIG.sessionStorageKey);
+      sessionStorage.removeItem(SESSION_CONFIG.activityKey);
+    }
+
+    // Hapus cookie
+    document.cookie = `${SESSION_CONFIG.cookieName}=; path=/admin; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+
+    // Redirect ke login dengan pesan
+    const url = new URL("/admin", window.location.origin);
+    url.searchParams.set("error", "session_expired");
+    window.location.href = url.toString();
+  };
+
+  /* ============================================
+     HANDLE MANUAL LOGOUT
      ============================================ */
   const handleLogout = () => {
-    // Remove semua cookie admin
-    document.cookie =
-      "admin-token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-    document.cookie =
-      "admin-token=; path=/admin; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    // Hapus semua session data
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem(SESSION_CONFIG.sessionStorageKey);
+      sessionStorage.removeItem(SESSION_CONFIG.activityKey);
+    }
 
-    // Redirect ke login page (/admin)
+    // Hapus cookie
+    document.cookie = `${SESSION_CONFIG.cookieName}=; path=/admin; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+    document.cookie = `${SESSION_CONFIG.cookieName}=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+
+    // Redirect ke login page
     router.push("/admin");
-    router.refresh(); // Force refresh untuk middleware
+    router.refresh();
   };
 
   /* ============================================
@@ -97,6 +206,41 @@ export default function AdminLayout({
   // Jika ini login page, render children langsung tanpa layout
   if (isLoginPage) {
     return <>{children}</>;
+  }
+
+  // Show loading while checking session
+  if (sessionValid === null) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-blue mx-auto"></div>
+          <p className="mt-4 text-gray-600">Memvalidasi session...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error if session invalid
+  if (sessionValid === false && !isLoginPage) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
+          <h2 className="text-xl font-bold text-primary-navy mb-2">
+            Session Tidak Valid
+          </h2>
+          <p className="text-gray-600 mb-4">
+            Anda perlu login untuk mengakses halaman ini.
+          </p>
+          <button
+            onClick={() => router.push("/admin")}
+            className="rounded-lg bg-gradient-blue-green px-6 py-2 font-medium text-white hover:shadow-lg"
+          >
+            Ke Halaman Login
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -236,9 +380,8 @@ export default function AdminLayout({
               </h3>
             </div>
             <p className="mb-6 text-gray-600">
-              Anda akan keluar dari admin panel. Anda harus login kembali via{" "}
-              <code className="rounded bg-gray-100 px-1">/admin</code> untuk
-              mengakses dashboard.
+              Anda akan keluar dari admin panel. Session browser ini akan
+              dihapus dan Anda harus login kembali untuk mengakses dashboard.
             </p>
             <div className="flex justify-end space-x-3">
               <button
@@ -264,15 +407,8 @@ export default function AdminLayout({
       <footer className="mt-8 border-t border-gray-200 bg-white px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-4 text-sm text-gray-500 sm:flex-row">
           <div>
-            <span className="font-medium text-primary-navy">
-              GSE Admin Panel
-            </span>{" "}
-            • v1.0 • © {new Date().getFullYear()}
-          </div>
-          <div className="flex items-center space-x-4">
-            <span>Login hanya via /admin</span>
-            <span className="hidden sm:inline">•</span>
-            <span className="hidden sm:inline">Cookie expire: 8 jam</span>
+            <span className="font-medium text-primary-navy">GSE Admin</span> • ©{" "}
+            {new Date().getFullYear()}
           </div>
         </div>
       </footer>
