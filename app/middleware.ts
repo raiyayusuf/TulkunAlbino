@@ -1,25 +1,39 @@
-// middleware.ts
+/* ============================================
+   app/middleware.ts
+   MIDDLEWARE UNTUK AUTHENTIKASI ADMIN
+   HANYA ADMIN YANG BISA AKSES /admin/*
+   LOGIN HANYA VIA /admin
+   ============================================ */
+
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("admin-token");
-  const isAdminPath = request.nextUrl.pathname.startsWith("/admin");
-  const isAuthPath = request.nextUrl.pathname.startsWith("/auth");
+  const pathname = request.nextUrl.pathname;
 
-  // Jika mau akses admin tapi belum login, redirect ke login
+  /* ============================================
+     SEMUA ROUTES ADMIN MEMBUTUHKAN LOGIN
+     ============================================ */
+  const isAdminPath = pathname.startsWith("/admin");
+
+  // Jika mau akses admin tapi belum login, redirect ke /admin (login page)
   if (isAdminPath && !token) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    // Jika sedang mencoba akses /admin/dashboard langsung, tetap redirect ke /admin
+    const url = new URL("/admin", request.url);
+    return NextResponse.redirect(url);
   }
 
-  // Jika sudah login tapi mau akses login page, redirect ke admin
-  if (isAuthPath && token) {
-    return NextResponse.redirect(new URL("/admin", request.url));
+  // Jika sudah login dan mau akses /admin (login page), redirect ke /admin/dashboard
+  if (pathname === "/admin" && token) {
+    const url = new URL("/admin/dashboard", request.url);
+    return NextResponse.redirect(url);
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/login", "/register"],
+  // Middleware hanya berlaku untuk routes /admin/*
+  matcher: "/admin/:path*",
 };

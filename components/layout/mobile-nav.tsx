@@ -1,6 +1,7 @@
 /* ============================================
    components/layout/mobile-nav.tsx
    MOBILE NAVIGATION COMPONENT - GSE JOGJA
+   NO LOGIN BUTTON, HANYA TAGLINE
    ============================================ */
 
 "use client";
@@ -9,6 +10,14 @@ import React from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
 import { usePathname } from "next/navigation";
+
+/* ============================================
+   TAGLINE CONFIGURATION
+   ============================================ */
+const TAGLINE = {
+  text: "Solutif, Edukatif, dan Progresif",
+  className: "text-center text-sm text-gray-600 italic mt-4",
+};
 
 /* ============================================
    PROPS INTERFACE
@@ -163,34 +172,22 @@ export default function MobileNav({
             ============================================ */}
         <div className="overflow-y-auto h-[calc(100vh-4rem)] p-4">
           {/* NAVIGATION MENU */}
-          <nav className="space-y-2">
-            {renderNavItems()}
-          </nav>
+          <nav className="space-y-2">{renderNavItems()}</nav>
 
           {/* ============================================
-              MOBILE LOGIN BUTTON
+              TAGLINE SECTION
               ============================================ */}
           <div className="mt-8 px-4">
-            <Link
-              href="/login"
-              onClick={onClose}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-blue-green px-4 py-3 text-white font-medium hover:shadow-md transition-shadow"
-            >
-              <svg
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
-              <span>Login / Register</span>
-            </Link>
+            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+              {/* TAGLINE */}
+              <p className={TAGLINE.className}>"{TAGLINE.text}"</p>
+
+              {/* ADMIN ACCESS NOTE */}
+              <p className="text-center text-xs text-gray-500 mt-2">
+                Admin access hanya via{" "}
+                <code className="bg-gray-100 px-1 rounded">/admin</code>
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -1,5 +1,8 @@
 /* ============================================
    components/layout/navbar.tsx
+   GSE JOGJA MAIN NAVIGATION BAR
+   LANDING PAGE ONLY - NO LOGIN BUTTON
+   TAGLINE: "Solutif, Edukatif, dan Progresif"
    ============================================ */
 
 "use client";
@@ -7,7 +10,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, User } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useScroll } from "@/hooks/use-scroll";
 import MobileNav from "./mobile-nav";
 import { usePathname } from "next/navigation";
@@ -18,7 +21,7 @@ import { useSidebar } from "@/context/sidebar-context";
    ============================================ */
 const NAV_ITEMS = [
   { name: "Home", href: "/" },
-  { name: "GSE Class", href: "/gse-class"},
+  { name: "GSE Class", href: "/gse-class" },
   { name: "GSE Mac", href: "/gse-mac" },
   { name: "Blog", href: "/blog" },
   { name: "About", href: "/about" },
@@ -46,10 +49,21 @@ const LOGO_CONFIG = {
 };
 
 /* ============================================
+   TAGLINE CONFIGURATION
+   ============================================ */
+const TAGLINE = {
+  text: "Solutif, Edukatif, dan Progresif",
+  showOnDesktop: true,
+  showOnMobile: false,
+  className: "hidden lg:block text-sm font-medium text-gray-600",
+  transparentClassName: "hidden lg:block text-sm font-medium text-gray-800",
+};
+
+/* ============================================
    SIDEBAR WIDTH CONSTANTS
    ============================================ */
 const SIDEBAR_WIDTHS = {
-  expanded: "w-64",  // 256px
+  expanded: "w-64", // 256px
   collapsed: "w-20", // 80px
 } as const;
 
@@ -66,9 +80,10 @@ export default function Navbar() {
   const shouldBeTransparent = isHomePage && !isScrolled;
 
   // Check if we're on a sidebar page
-  const isSidebarPage = pathname.startsWith('/gse-class') || 
-                       pathname.startsWith('/gse-mac') || 
-                       pathname.startsWith('/blog');
+  const isSidebarPage =
+    pathname.startsWith("/gse-class") ||
+    pathname.startsWith("/gse-mac") ||
+    pathname.startsWith("/blog");
 
   /* ============================================
      LOGO CONFIGURATION BASED ON PAGE TYPE
@@ -79,14 +94,16 @@ export default function Navbar() {
       return {
         logo: LOGO_CONFIG.full,
         widthClass: SIDEBAR_WIDTHS.expanded, // w-64
-        marginClass: "ml-9" // Same as sidebar expanded
+        marginClass: "ml-9", // Same as sidebar expanded
       };
     } else {
       // SIDEBAR PAGES: Follow sidebar state
       return {
         logo: isCollapsed ? LOGO_CONFIG.simple : LOGO_CONFIG.full,
-        widthClass: isCollapsed ? SIDEBAR_WIDTHS.collapsed : SIDEBAR_WIDTHS.expanded,
-        marginClass: isCollapsed ? "ml-1" : "ml-9"
+        widthClass: isCollapsed
+          ? SIDEBAR_WIDTHS.collapsed
+          : SIDEBAR_WIDTHS.expanded,
+        marginClass: isCollapsed ? "ml-1" : "ml-9",
       };
     }
   };
@@ -119,18 +136,15 @@ export default function Navbar() {
         }`}
       >
         <div className="flex h-16 items-center px-4 lg:px-6">
-          
           {/* ============================================
               LEFT SECTION - LOGO (CONSISTENT LAYOUT)
               ============================================ */}
-          <div 
+          <div
             className={`flex-shrink-0 transition-all duration-300 ${widthClass}`}
           >
             <div className={`${marginClass} transition-all duration-300`}>
               <Link href="/" className="flex items-center">
-                <div
-                  className={`relative ${logo.height} ${logo.width}`}
-                >
+                <div className={`relative ${logo.height} ${logo.width}`}>
                   <Image
                     src={logo.src}
                     alt={logo.alt}
@@ -147,7 +161,9 @@ export default function Navbar() {
           {/* ============================================
               CENTER SECTION - NAV MENU (CONSISTENT SPACING)
               ============================================ */}
-          <div className={`hidden md:flex flex-1 items-center justify-start space-x-6 ${menuSpacing}`}>
+          <div
+            className={`hidden md:flex flex-1 items-center justify-start space-x-6 ${menuSpacing}`}
+          >
             {NAV_ITEMS.map((item) => (
               <div key={item.name} className="relative group">
                 <div className="relative">
@@ -177,24 +193,25 @@ export default function Navbar() {
           </div>
 
           {/* ============================================
-              RIGHT SECTION - LOGIN & MOBILE MENU
+              RIGHT SECTION - TAGLINE & MOBILE MENU
               ============================================ */}
-          <div className="flex items-center space-x-3">
-            
-            {/* Desktop Login Button */}
-            <Link
-              href="/login"
-              className={`hidden md:flex items-center space-x-2 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
+          <div className="flex items-center space-x-4">
+            {/* ============================================
+                TAGLINE - "Solutif, Edukatif, dan Progresif"
+                ============================================ */}
+            <div
+              className={
                 shouldBeTransparent
-                  ? "bg-transparent text-gray-800 border border-gray-800 hover:bg-gray-800 hover:text-white"
-                  : "bg-gradient-blue-green text-white hover:shadow-md"
-              }`}
+                  ? TAGLINE.transparentClassName
+                  : TAGLINE.className
+              }
             >
-              <User className="h-4 w-4" />
-              <span>Login</span>
-            </Link>
+              {TAGLINE.text}
+            </div>
 
-            {/* Mobile Menu Button */}
+            {/* ============================================
+                MOBILE MENU BUTTON
+                ============================================ */}
             <button
               onClick={() => setIsMobileNavOpen(true)}
               className={`md:hidden rounded-full p-2 transition-colors ${
